@@ -3,10 +3,11 @@ function initApplication(){
 	$("#acquisisci_qr").tap(function(){
 		
 		var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+		//var scanner = window.plugins.barcodeScanner;
 		var pattern_qr = new RegExp(/[\d]+$/);
 		
 		// BLOCCA TASTO QR
-		$(this).button('disable').addClass("ui-disabled");
+ 		$(this).button('disable').addClass("ui-disabled");
 		$(this).button('refresh');    
 
 		// ABILITA LA SCANSIONE
@@ -182,6 +183,18 @@ function initApplication(){
 		}
 	
 	});
+	
+	var watchID;
+
+	//if(navigator.geolocation){
+    
+	watchID = navigator.geolocation.watchPosition(successCallback, errorCallback,{
+		enableHighAccuracy : true,
+		timeout : 30000,
+		maximumAge: 3000, 	
+		frequency:250
+		}
+	);
 	
 }
 
