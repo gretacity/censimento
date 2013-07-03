@@ -18,6 +18,7 @@ else{
 
 function successCallback(position){
 			
+	alert("callback ok");
 	console.log("gps callback");
 																
 	// SCRIVO LATITUDINE E LONGITUDINE
@@ -50,6 +51,7 @@ function successCallback(position){
 };
 						
 function errorCallback(error){
+	alert("error callback");
     switch(error.code){
     case error.PERMISSION_DENIED:
         //document.write("PERMISSION DENIED");
