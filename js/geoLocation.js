@@ -1,21 +1,3 @@
-var watchID;
-
-if(navigator.geolocation){
-    
-	watchID = navigator.geolocation.watchPosition(successCallback, errorCallback,{
-		enableHighAccuracy : true,
-		timeout : 30000,
-		maximumAge: 3000, 	
-		frequency:250
-		}
-	);
-	
-}
-else{
-	console.log("geolocalizzazione non supportata");
-    disableSubmit();
-}
-
 function successCallback(position){
 			
 	console.log("gps callback");
