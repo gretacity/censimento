@@ -1,5 +1,5 @@
-$("#form-installazione").live('submit', function(){
-	
+function validate(){
+		
 	var dimensione = new RegExp(/^((\d)+)(\.(\d)+)?$/);
 	var numerico = new RegExp(/^[\d]+$/);
 
@@ -69,4 +69,4 @@ $("#form-installazione").live('submit', function(){
 	}
 	
 	return false;
-});
+}
