@@ -4,6 +4,8 @@ function save(){
 	
 	if(validate()){
 		
+		alert("valida");
+		
 		//console.log("chiamo la funzione di salvataggio");
 	    db.transaction(dataSave, errorDataSave,successDataSave);
 	    
