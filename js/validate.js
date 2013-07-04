@@ -1,5 +1,5 @@
 function validate(){
-		
+			
 	var dimensione = new RegExp(/^((\d)+)(\.(\d)+)?$/);
 	var numerico = new RegExp(/^[\d]+$/);
 

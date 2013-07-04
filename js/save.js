@@ -1,7 +1,5 @@
-$("#save").tap(function(){
-	
-	alert("salvo");
-	
+function save(){	
+
 	console.log("controllo i dati con la funzione validate");
 	
 	if(validate()){
@@ -13,7 +11,8 @@ $("#save").tap(function(){
 	    $("#save").button('disable').addClass("ui-disabled");
 		$('#save').button('refresh');  
 	} 
-});
+	
+}
 
 function dataSave(tx){
 	
