@@ -194,6 +194,8 @@ function errorDataSave(){
 }
 
 function validate(){
+	
+	alert("funzione di validazione");
 			
 	var dimensione = new RegExp(/^((\d)+)(\.(\d)+)?$/);
 	var numerico = new RegExp(/^[\d]+$/);
