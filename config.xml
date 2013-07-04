@@ -8,7 +8,7 @@
    <description>La citta' in tasca</description>
    <author href="http://www.gretacity.com" email="info@gretacity.com">gretacity</author>
    <feature name="http://api.phonegap.com/1.0/network"/>
-   <preference name="phonegap-version" value="2.9.0" />
+   <preference name="phonegap-version" value="2.8.0" />
    <preference name="target-device" value="universal" />
    
    <gap:plugin name="BarcodeScanner" /> <!-- latest release -->
