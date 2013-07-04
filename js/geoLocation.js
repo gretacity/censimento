@@ -1,6 +1,6 @@
 var watchID;
 
-//if(navigator.geolocation){
+if(navigator.geolocation){
     
 	watchID = navigator.geolocation.watchPosition(successCallback, errorCallback,{
 		enableHighAccuracy : true,
@@ -10,11 +10,11 @@ var watchID;
 		}
 	);
 	
-//}
-//else{
-    //document.write("Geolocalizzazione non supportata"); 
-   // disableSubmit();
-//}
+}
+else{
+	console.log("geolocalizzazione non supportata");
+    disableSubmit();
+}
 
 function successCallback(position){
 			
