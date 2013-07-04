@@ -1,10 +1,10 @@
 function save(){	
 	
-	//alert("salvo");	
+	alert("salvo");	
 	
 	if(validate()){
 		
-		//alert("valida");
+		alert("valida");
 		
 		//console.log("chiamo la funzione di salvataggio");
 	    db.transaction(dataSave, errorDataSave,successDataSave);
