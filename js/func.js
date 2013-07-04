@@ -19,6 +19,17 @@ function initApplication(){
 	    disableSubmit();
 	}
 	
+	// STICKY FOOTER
+	$(document).on("pagecreate", ".ui-page", function () {
+	    var $page  = $(this),
+	        vSpace = $page.children('.ui-header').outerHeight() + $page.children('.ui-footer').outerHeight() + $page.children('.ui-content').height();
+	
+	    if (vSpace < $(window).height()) {
+	        var vDiff = $(window).height() - $page.children('.ui-header').outerHeight() - $page.children('.ui-footer').outerHeight() - 30;
+	        $page.children('.ui-content').height(vDiff);
+	    }
+	});
+	
 	$("#acquisisci_qr").tap(function(){
 		
 		var scanner = cordova.require("cordova/plugin/BarcodeScanner");
