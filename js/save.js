@@ -5,7 +5,6 @@ function save(){
 	if(validate()){
 		
 		//console.log("chiamo la funzione di salvataggio");
-		
 	    db.transaction(dataSave, errorDataSave,successDataSave);
 	    
 	    // DISABILITO IL PULSANTE
@@ -16,6 +15,8 @@ function save(){
 }
 
 function dataSave(tx){
+	
+	alert("salvo i dati");
 	
 	//console.log("sono in data save");
 	
