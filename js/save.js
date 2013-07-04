@@ -1,7 +1,7 @@
 function save(){	
 	
-	alert("salvo");
-	
+	alert("salvo");	
+	/*
 	if(validate()){
 		console.log("chiamo la funzione di salvataggio");
 		
@@ -11,6 +11,7 @@ function save(){
 	    $("#save").button('disable').addClass("ui-disabled");
 		$('#save').button('refresh');  
 	} 
+	*/
 	
 }
 
