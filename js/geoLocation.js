@@ -1,6 +1,6 @@
 function successCallback(position){
 			
-	console.log("gps callback");
+	//console.log("gps callback");
 																
 	// SCRIVO LATITUDINE E LONGITUDINE
 	var lon,lat,acc;
