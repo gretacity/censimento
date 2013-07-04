@@ -1,10 +1,10 @@
 function save(){	
 	
-	alert("salvo");	
+	//alert("salvo");	
 	
 	if(validate()){
 		
-		alert("valida");
+		//alert("valida");
 		
 		//console.log("chiamo la funzione di salvataggio");
 	    db.transaction(dataSave, errorDataSave,successDataSave);
@@ -18,7 +18,7 @@ function save(){
 
 function dataSave(tx){
 	
-	alert("salvo i dati");
+	//alert("salvo i dati");
 	
 	//console.log("sono in data save");
 	
@@ -172,7 +172,7 @@ function dataSave(tx){
 
 function successDataSave(){
 	
-	alert("Censimento Memorizzato");
+	//alert("Censimento Memorizzato");
 	
 	// CANCELLA IL FORM PER IL PROSSIMO INSERIMENTO	
 	inizializza_road();
