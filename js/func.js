@@ -1,7 +1,7 @@
+// INIZIALIZZA IL GPS
+var watchID;
+
 function initApplication(){
-	
-	// INIZIALIZZA IL GPS
-	var watchID;
 
 	if(navigator.geolocation){
 	    

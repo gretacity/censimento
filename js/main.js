@@ -14,11 +14,13 @@ function init(){
 	db.transaction(initDb, errorInitDb,successInitDb);
 	
 	/* funzionaaa */
+	/*
 	$("#qr_code").keyup(function(e){
 	    if(e.which == 13){ 
 	        alert("ciao");
 	    }
 	});
+	*/
 	
 }
 

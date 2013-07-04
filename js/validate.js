@@ -54,8 +54,6 @@ function validate(){
  	}
  	
  	
- 	
-
 	if(!validate)
 		alert(message);
 		
