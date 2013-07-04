@@ -18,7 +18,6 @@ function initApplication(){
 		console.log("geolocalizzazione non supportata");
 	    disableSubmit();
 	}
-
 	
 	$("#acquisisci_qr").tap(function(){
 		
@@ -201,18 +200,6 @@ function initApplication(){
 		    alert('Failed because: ' + message);
 		}
 	
-	});
-	
-	
-	// STICKY FOOTER
-	$(document).on("pageshow", ".ui-page", function () {
-	    var $page  = $(this),
-	        vSpace = $page.children('.ui-header').outerHeight() + $page.children('.ui-footer').outerHeight() + $page.children('.ui-content').height();
-	
-	    if (vSpace < $(window).height()) {
-	        var vDiff = $(window).height() - $page.children('.ui-header').outerHeight() - $page.children('.ui-footer').outerHeight() - 30;
-	        $page.children('.ui-content').height(vDiff);
-	    }
 	});
 	
 }
