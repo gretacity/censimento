@@ -1,6 +1,6 @@
 function save(){	
-
-	console.log("controllo i dati con la funzione validate");
+	
+	alert("salvo");
 	
 	if(validate()){
 		console.log("chiamo la funzione di salvataggio");
