@@ -1,10 +1,10 @@
 function save(){	
 	
-	alert("salvo");	
+	//alert("salvo");	
 	
 	if(validate()){
 		
-		alert("valida");
+		//alert("valida");
 		
 		//console.log("chiamo la funzione di salvataggio");
 	    db.transaction(dataSave, errorDataSave,successDataSave);
@@ -195,7 +195,7 @@ function errorDataSave(){
 
 function validate(){
 	
-	alert("funzione di validazione");
+	//alert("funzione di validazione");
 			
 	var dimensione = new RegExp(/^((\d)+)(\.(\d)+)?$/);
 	var numerico = new RegExp(/^[\d]+$/);
