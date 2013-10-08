@@ -11,7 +11,7 @@
    <preference name="phonegap-version" value="2.9.0" />
    <preference name="target-device" value="universal" />
    
-   <!--  <gap:plugin name="BarcodeScanner" />--> <!-- latest release -->
+   <!--  ultima release del plugin barcodescanner -->
    <gap:plugin name="com.phonegap.plugins.barcodescanner" />
    <access origin="*" />
 
