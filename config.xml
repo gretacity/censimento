@@ -12,7 +12,7 @@
    <preference name="target-device" value="universal" />
    
    <!--  ultima release del plugin barcodescanner -->
-   <gap:plugin name="com.phonegap.BarcodeScanner />
+   <gap:plugin name="com.phonegap.BarcodeScanner" />
    <access origin="*" />
 
    <!-- Icons -->
