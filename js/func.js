@@ -36,8 +36,8 @@ function initApplication(){
 	
 	$("#acquisisci_qr").tap(function(){
 		
-		var scanner = window.plugins.barcodeScanner;
-		//var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+		//var scanner = window.plugins.barcodeScanner;
+		var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 		var pattern_qr = new RegExp(/[\d]+$/);
 		
 		// BLOCCA TASTO QR
