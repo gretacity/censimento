@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 	<widget xmlns     = "http://www.w3.org/ns/widgets"
-        	xmlns:gap = "http://phonegap.com/ns/2.9.0"
+        	xmlns:gap = "http://phonegap.com/ns/1.0"
         	id        = "com.gretacity.app"
         	version   = "1.0">
 
@@ -12,7 +12,7 @@
    <preference name="target-device" value="universal" />
    
    <!--  ultima release del plugin barcodescanner -->
-   <gap:plugin name="com.phonegap.plugins.barcodescanner" />
+   <gap:plugin name="com.phonegap.BarcodeScanner />
    <access origin="*" />
 
    <!-- Icons -->
