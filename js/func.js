@@ -4,14 +4,18 @@ var watchID;
 function initApplication(){
 
 	if(navigator.geolocation){
-	    
+	    	    
+	    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+/*
 		watchID = navigator.geolocation.watchPosition(successCallback, errorCallback,{
 			enableHighAccuracy : true,
-			timeout : 30000,
+			timeout : 60000,
 			maximumAge: 3000, 	
 			frequency:250
 			}
 		);
+		*/	
+		
 		
 	}
 	else{
@@ -32,6 +36,7 @@ function initApplication(){
 	
 	$("#acquisisci_qr").tap(function(){
 		
+		//var scanner = window.plugins.barcodeScanner;
 		var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 		var pattern_qr = new RegExp(/[\d]+$/);
 		
@@ -213,31 +218,66 @@ function initApplication(){
 	
 	});
 	
+	
+	$("#inizia_censimento").tap(function(){
+
+		console.log("aggiorna e azzera i valori");
+		
+	    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+	    
+	    $.mobile.changePage("#roadpage");	
+	    
+	    $("#latitude").val("");
+		$("#longitude").val("");
+		$("#accuracy").val("");
+		
+		$("#latitude, #longitude,#accuracy").css("background-color","#f2dede");
+
+	});
 }
 
 //################################################################################################################
 // FUNZIONI ASSOCIATE AGLI EVENTI
 
-function dettagli_esame(indice){
+function dettaglio_intervento_descrizione(indice){
+	
+	
+	var valore = $("#cartello_necessario_intervento_tipo_"+indice).val();
 	
 	// SE NECESSARIO INTERVENTO
-    if($("#necessario_intervento_"+indice).is(':checked')) {		
+    if(valore == 1 || valore == 3 ) {		
     		      			      
-	 	// MOSTRA ESAME OBIETTIVO 
-     	$("#cartello_esame_"+indice).trigger('create');
-        $("#cartello_esame_"+indice).fadeIn("slow");
+	 	// MOSTRA DESCRIZIONE 
+     	$("#div_necessario_intervento_descrizione_"+indice).trigger('create');
+        $("#div_necessario_intervento_descrizione_"+indice).fadeIn("slow");
 	 	
     } 
     else{
     	
-		// NASCONDI ESAME OBIETTIVO
-   	  	if($("#cartello_esame_"+indice).css('display') != "none")
-   	  		
-			$("#cartello_esame_"+indice).fadeOut("slow");
-   	  	
+		// NASCONDI DESCRIZIONE
+        $("#div_necessario_intervento_descrizione_"+indice).fadeOut("slow");
+   	}
+	
+}
+
+
+function dettaglio_forma(indice){
+	
+	var forma = $("#cartello_forma_"+indice).val();
+		
+	// FORMA RETTANGOLO 2 MISURE
+	if(forma == 2){
+		
+		 // APRI DETTAGLI OMOLOGAZIONE
+       	$("#div_altezza_"+indice).trigger('create');
+        $("#div_altezza_"+indice).fadeIn("slow");
     }
-	
-	
+    else{
+    	
+    	$("#div_altezza_"+indice).fadeOut("slow");
+
+    }
+   
 }
 
 function dettagli_omologazione(indice){
@@ -357,18 +397,39 @@ function dettaglio_cartelli(numero_cartelli){
 			  "</p>"+
 			  "<hr />"+
 			  "<p>"+
-              "  <div data-role='fieldcontain' >"+
-		      "     <fieldset data-role='controlgroup'>"+
-			  "     <input type='checkbox' name='cartello_necessario_intervento_"+i+"' id='necessario_intervento_"+i+"' onclick='dettagli_esame("+i+")' class='custom' />"+
-			  "        <label for='necessario_intervento_"+i+"'>Necessario Intervento</label>"+
-			  "     </fieldset>"+
-		  	  "  </div>"+ 
+	          "   <label>Tipo Intervento:</label>"+
+			  "      <select onchange='dettaglio_intervento_descrizione("+i+")' id='cartello_necessario_intervento_tipo_"+i+"' name='cartello_necessario_intervento_tipo_"+i+"'>"+
+			  "        <option value='0' selected>Non Necessario</option>"+
+			  "        <option value='1'>Sostituzione Parziale</option>"+
+			  "        <option value='2'>Sostituzione Totale</option>"+
+  			  "        <option value='3'>Soggetto a Manutenzione</option>"+
+			  "      </select>"+
 			  "</p>"+
-			  "<p style='display:none' id='cartello_esame_"+i+"'>"+
-              "   <label>Esame Obiettivo:</label>"+
-			  "     <textarea name='cartello_esame_obiettivo_"+i+"' id='esame_obiettivo_"+i+"'></textarea>"+
+			  "<p id='div_necessario_intervento_descrizione_"+i+"' style='display:none;'>"+
+	          "   <label>Descrizione dell'intervento:</label>"+
+			  "	    <textarea id='cartello_necessario_intervento_descrizione_"+i+"' name='cartello_necessario_intervento_descrizione_"+i+"'></textarea>"+
+	          "</p>"+
+			  "<hr />"+
+			  "<p>"+
+	          "   <label>Forma:</label>"+
+			  "      <select onchange='dettaglio_forma("+i+")' id='cartello_forma_"+i+"' name='cartello_forma_"+i+"'>"+
+			  "        <option value='0' selected>Quadrato</option>"+
+			  "        <option value='1'>Rombo</option>"+
+			  "        <option value='2'>Rettangolo</option>"+
+  			  "        <option value='3'>Triangolo</option>"+
+			  "        <option value='4'>Cerchio</option>"+
+  			  "        <option value='5'>Ottagono</option>"+
+			  "      </select>"+
 			  "</p>"+
-			  "<hr />";
+			  "<p >"+
+	          "   <label>Lato (cm):</label>"+
+			  "      <input type='text' id='cartello_lato_"+i+"' name='cartello_lato_"+i+"' placeholder='Dimensione (cm)'/>"+
+	          "</p>"+
+	          "<p id='div_altezza_"+i+"' style='display:none;' >"+
+	          "   <label>Altezza (cm):</label>"+
+			  "      <input type='text' id='cartello_altezza_"+i+"' name='cartello_altezza_"+i+"' placeholder='Dimensione (cm)'/>"+
+	          "</p>"+
+	          "<hr />";
 			  
 			 
 			 $('#dettaglio_cartelli').append(str);
