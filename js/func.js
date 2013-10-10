@@ -4,19 +4,10 @@ var watchID;
 function initApplication(){
 
 	if(navigator.geolocation){
-	    	    
+	    
+	    // RECUPERA POSIZIONE NON APPENA SI AVVIA L'APPLICAZIONE	    
 	    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-/*
-		watchID = navigator.geolocation.watchPosition(successCallback, errorCallback,{
-			enableHighAccuracy : true,
-			timeout : 60000,
-			maximumAge: 3000, 	
-			frequency:250
-			}
-		);
-		*/	
-		
-		
+	    	
 	}
 	else{
 		console.log("geolocalizzazione non supportata");
@@ -37,9 +28,9 @@ function initApplication(){
 	$("#acquisisci_qr").tap(function(){
 		
 		// building con android
-		//var scanner = window.plugins.barcodeScanner;
+		var scanner = window.plugins.barcodeScanner;
 		// building con phonegap build
-		var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+		//var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 		var pattern_qr = new RegExp(/[\d]+$/);
 		
 		// BLOCCA TASTO QR
@@ -222,9 +213,8 @@ function initApplication(){
 	
 	
 	$("#inizia_censimento").tap(function(){
-
-		console.log("aggiorna e azzera i valori");
 		
+		console.log("aggiorna e azzera i valori");		
 	    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 	    
 	    $.mobile.changePage("#roadpage");	
