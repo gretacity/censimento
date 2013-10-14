@@ -1,0 +1,8 @@
+.ui-btn-up-selezionato , .ui-btn-hover-selezionato {
+	border: 1px solid 		#16a765 /*{b-bup-border}*/;
+	background: 			#dff0d8 /*{b-bup-background-color}*/;
+	color: 					#000 /*{b-bup-color}*/;
+	text-shadow: 0 /*{b-bup-shadow-x}*/ -1px /*{b-bup-shadow-y}*/ 1px /*{b-bup-shadow-radius}*/ transparent /*{b-bup-shadow-color}*/;
+}
+
+
