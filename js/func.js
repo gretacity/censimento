@@ -139,8 +139,8 @@ function initApplication(){
 			quality: 25,
 	    	destinationType: Camera.DestinationType.DATA_URL,
 	    	sourceType : Camera.PictureSourceType.CAMERA,
-	    	mediaType: Camera.MediaType.PICTURE
-	 
+	    	mediaType: Camera.MediaType.PICTURE,
+	    	correctOrientation : true
 		 }); 
 		
 		function onSuccess(imageData) {
@@ -166,8 +166,9 @@ function initApplication(){
 			quality: 25,
 	    	destinationType: Camera.DestinationType.DATA_URL,
 	    	sourceType : Camera.PictureSourceType.CAMERA,
-	    	mediaType: Camera.MediaType.PICTURE
-	 
+	    	mediaType: Camera.MediaType.PICTURE,
+	    	correctOrientation : true
+
 		 }); 
 		
 		function onSuccess(imageData) {
@@ -193,8 +194,9 @@ function initApplication(){
 			quality: 25,
 	    	destinationType: Camera.DestinationType.DATA_URL,
 	    	sourceType : Camera.PictureSourceType.CAMERA,
-	    	mediaType: Camera.MediaType.PICTURE
-	 
+	    	mediaType: Camera.MediaType.PICTURE,
+	    	correctOrientation : true
+	    	
 		 }); 
 		
 		function onSuccess(imageData) {
