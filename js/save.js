@@ -1,11 +1,8 @@
 function save(){	
 	
-	//alert("salvo");	
-	
+	// SE I DATI SONO VALIDATI
 	if(validate()){
-		
-		//alert("valida");
-		
+				
 		//console.log("chiamo la funzione di salvataggio");
 	    db.transaction(dataSave, errorDataSave,successDataSave);
 	    
@@ -22,6 +19,7 @@ function dataSave(tx){
 	
 	//console.log("sono in data save");
 	
+	// RECUPERA I DATI E CONTROLLA SE BENE O SEGNALETICA
 	var qr_code = $("#qr_code").val();
 	var latitude = $("#latitude").val();
 	var longitude = $("#longitude").val();
@@ -62,17 +60,12 @@ function dataSave(tx){
 					}
 						
 					// RECUPERO NECESSARIO INTERVENTO E ESAME
-					var cartello_necessario_intervento = "off";
-					var cartello_esame_obiettivo = "";
-					var necessario_intervento = 0;
-					if($("#necessario_intervento_"+i).is(':checked')){
-						cartello_necessario_intervento = "on";
-						cartello_esame_obiettivo = $("#esame_obiettivo_"+i).val();
-						necessario_intervento = 1;
-
-					}
+					var necessario_intervento_tipo = $("#cartello_necessario_intervento_tipo_"+i).val();
+					var necessario_intervento_descrizione = $("#cartello_necessario_intervento_descrizione_"+i).val();
 					
-			
+					var forma = $("#cartello_forma_"+i).val();
+					var lato = $("#cartello_lato_"+i).val();
+					var altezza = $("#cartello_altezza_"+i).val();
 					
 					// RECUPERA DATI OMOLOGAZIONE
 					var omologato = "";
@@ -100,11 +93,14 @@ function dataSave(tx){
 					console.log("data inst "+data_inst);
 					console.log("ord n "+ord_n);
 					console.log("ord_del "+ord_del);
-					console.log("necessario intervento"+necessario_intervento);
-					console.log("esame obiettivo:"+cartello_esame_obiettivo);
+					console.log("necessario intervento tipo"+necessario_intervento_tipo);
+					console.log("necessario intervento descrizione:"+necessario_intervento_descrizione);
+					console.log("cartello_forma "+forma);
+					console.log("cartello_lato "+lato);
+					console.log("cartello_altezza "+altezza);
 					*/
 					
-					tx.executeSql('INSERT INTO censimento_cartello (censimento_id,segnale_id,pellicola_id,supporto_id,marchiato_ce_ck,omologato_ck,ditta_produttrice,ditta_installatrice,data_installazione,ordinanza_n,ordinanza_del,necessario_intervento_ck,esame_obiettivo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',[censimento_ins,cartello_segnale,cartello_pellicola,cartello_supporto,marchiato_ce,omologato,ditta_prod,ditta_inst,data_inst,ord_n,ord_del,necessario_intervento,cartello_esame_obiettivo]);
+					tx.executeSql('INSERT INTO censimento_cartello (censimento_id,segnale_id,pellicola_id,supporto_id,marchiato_ce_ck,omologato_ck,ditta_produttrice,ditta_installatrice,data_installazione,ordinanza_n,ordinanza_del,necessario_intervento_tipo,necessario_intervento_descrizione,forma,lato,altezza) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',[censimento_ins,cartello_segnale,cartello_pellicola,cartello_supporto,marchiato_ce,omologato,ditta_prod,ditta_inst,data_inst,ord_n,ord_del,necessario_intervento_tipo,necessario_intervento_descrizione,forma,lato,altezza]);
 
 				}
 
@@ -256,7 +252,8 @@ function validate(){
 		
 	else{
 		
-		clearWatch(watchID);
+		// STOPPO LA RICHIESTA DELLA TRACCIA GPS
+		//clearWatch(watchID);
 		
 		// INVIA I DATI
 		return true;

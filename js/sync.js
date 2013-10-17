@@ -1,6 +1,10 @@
 function sync_data(){
 	
 	if(confirm("Questa procedura potrebbe impiegare del tempo, vuoi continuare?")){
+		
+		// DEVO CONTROLLARE LA PRESENZA DELLE CREDENZIALI
+		
+		
 	
 		// DISABILITA PULSANTE  
 		$("#sync_data").addClass('ui-disabled');   

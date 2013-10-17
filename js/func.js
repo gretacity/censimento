@@ -1,5 +1,5 @@
 // INIZIALIZZA IL GPS
-var watchID;
+//var watchID;
 
 function initApplication(){
 
@@ -28,9 +28,9 @@ function initApplication(){
 	$("#acquisisci_qr").tap(function(){
 		
 		// building con android
-		//var scanner = window.plugins.barcodeScanner;
+		var scanner = window.plugins.barcodeScanner;
 		// building con phonegap build
-		var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+		//var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 		var pattern_qr = new RegExp(/[\d]+$/);
 		
 		// BLOCCA TASTO QR
@@ -57,7 +57,9 @@ function initApplication(){
 	   );
 		
 	});
-
+	
+	// DISABILITO IL RETRO CARTELLO ALL'INIZIO DELL'APP
+	$( "#col_retro_cartello h3" ).addClass( "ui-disabled" );
 	
 	// SE CAMBIA NUMERO CARTELLI 
 	$("#add_dettaglio_cartelli").tap(function(){
@@ -67,18 +69,19 @@ function initApplication(){
 		$("#dettaglio_omologazione").empty();
 		
 		var numero_cartelli = $("#numero_cartelli").val();
-		if(numero_cartelli > 0){
-			
-			//$("#numero_cartelli").attr("readonly","readonly");
-			
-			// MOSTRO IL CARICAMENTO
-			$.mobile.loading('show');
+	
+		// CONTROLLO IL NUMERO DI CARTELLI
+		var check = false;
+		if(numero_cartelli >= 10)
+			check = confirm("Questa operazione potrebbe richiedere del tempo, Continuare?");
+		else
+			check = true;
+
+		// CONTROLLA IL NUMERO DI CARTELLI
+		if(numero_cartelli > 0 && check){
 			
 			// GENERA DETTAGLIO CARTELLI 
 			dettaglio_cartelli(numero_cartelli);
-			
-			//NASCONDO IL CARICAMENTO        
-			$.mobile.loading('hide');
 			
 			$("#dettaglio_cartelli").fadeIn("slow");
 			
@@ -100,10 +103,17 @@ function initApplication(){
 		$("#dettaglio_pali").empty();
 				
 		var numero_pali = $("#numero_pali").val();
-		if(numero_pali > 0){
-			
-			//$("#numero_pali").attr("readonly","readonly");
-			
+		
+		// CONTROLLO IL NUMERO DI PALI
+		var check = false;
+		if(numero_pali >= 10)
+			check = confirm("Questa operazione potrebbe richiedere del tempo, Continuare?");
+		else
+			check = true;
+
+		// CONTROLLA IL NUMERO DI CARTELLI
+		if(numero_pali > 0 && check){
+						
 			// GENERA DETTAGLIO PALI
 			dettaglio_pali(numero_pali);
 			
@@ -119,8 +129,17 @@ function initApplication(){
 		$("#dettaglio_staffe").empty();
 		
 		var numero_staffe = $("#numero_staffe").val();
-		if(numero_staffe > 0){
-			
+		
+		// CONTROLLO IL NUMERO DI PALI
+		var check = false;
+		if(numero_staffe >= 10)
+			check = confirm("Questa operazione potrebbe richiedere del tempo, Continuare?");
+		else
+			check = true;
+
+		// CONTROLLA IL NUMERO DI CARTELLI
+		if(numero_staffe > 0 && check){
+					
 			//$("#numero_staffe").attr("readonly","readonly");
 			
 			// GENERA DETTAGLIO PALI
@@ -371,79 +390,72 @@ function dettaglio_cartelli(numero_cartelli){
 		
 	var str = "";
 	
-	// IMPLEMENTAZIONE DELLA CONFERMA
-	if(numero_cartelli >= 10 && !confirm("Sei sicuro di voler inserire tutti questi Cartelli?"))
-		return;
-	
-	else{
-		
-		for(var i=0;i<numero_cartelli;i++){
-	
-			str = "<h3>Cartello "+(i+1)+"</h3>"+
-				  "<p>"+				  
-				  "<label>Inserisci Figura C.d.S. o breve Descrizione:</label>"+		
-				  " <p>"+
-							"<input type='search' id='cerca_segnale_"+i+"' name='cerca_segnale_"+i+"' placeholder='Cerca Segnale'/>"+
-							"<a onclick='cerca_cartello("+i+")' data-role='button'>Cerca</a>"+ 
-							"<input type='hidden' id='cartello_segnale_"+i+"' name='cartello_segnale_"+i+"' />"+
-							"<ul id='suggestions_"+i+"' data-role='listview' data-inset='true' data-split-theme='d'></ul>"+
-				  " </p>"+
-				  "</p>"+
-			      "<p>"+
-		          "   <label>Supporto:</label>"+
-				  "	    <select name='cartello_supporto_"+i+"'>"+
-				  "        <option value='1' selected>Ferro</option>"+
-				  "        <option value='2'>Alluminio</option>"+
-				  "     </select>"+
-		          "</p>"+
-	        	  "<p>"+
-	              "   <label>Pellicola:</label>"+
-				  "     <select name='cartello_pellicola_"+i+"'>"+
-				  "        <option value='1' selected>E.G. Classe I</option>"+
-				  "        <option value='2'>H.I. Classe II</option>"+
-				  "        <option value='3'>H.I. Special III</option>"+
-				  "     </select>"+
-				  "</p>"+
-				  "<hr />"+
-				  "<p>"+
-		          "   <label>Tipo Intervento:</label>"+
-				  "      <select onchange='dettaglio_intervento_descrizione("+i+")' id='cartello_necessario_intervento_tipo_"+i+"' name='cartello_necessario_intervento_tipo_"+i+"'>"+
-				  "        <option value='0' selected>Non Necessario</option>"+
-				  "        <option value='1'>Sostituzione Parziale</option>"+
-				  "        <option value='2'>Sostituzione Totale</option>"+
-	  			  "        <option value='3'>Soggetto a Manutenzione</option>"+
-				  "      </select>"+
-				  "</p>"+
-				  "<p id='div_necessario_intervento_descrizione_"+i+"' style='display:none;'>"+
-		          "   <label>Descrizione dell'intervento:</label>"+
-				  "	    <textarea id='cartello_necessario_intervento_descrizione_"+i+"' name='cartello_necessario_intervento_descrizione_"+i+"'></textarea>"+
-		          "</p>"+
-				  "<hr />"+
-				  "<p>"+
-		          "   <label>Forma:</label>"+
-				  "      <select onchange='dettaglio_forma("+i+")' id='cartello_forma_"+i+"' name='cartello_forma_"+i+"'>"+
-				  "        <option value='0' selected>Quadrato</option>"+
-				  "        <option value='1'>Rombo</option>"+
-				  "        <option value='2'>Rettangolo</option>"+
-	  			  "        <option value='3'>Triangolo</option>"+
-				  "        <option value='4'>Cerchio</option>"+
-	  			  "        <option value='5'>Ottagono</option>"+
-				  "      </select>"+
-				  "</p>"+
-				  "<p >"+
-		          "   <label>Lato (cm):</label>"+
-				  "      <input type='text' id='cartello_lato_"+i+"' name='cartello_lato_"+i+"' placeholder='Dimensione (cm)'/>"+
-		          "</p>"+
-		          "<p id='div_altezza_"+i+"' style='display:none;' >"+
-		          "   <label>Altezza (cm):</label>"+
-				  "      <input type='text' id='cartello_altezza_"+i+"' name='cartello_altezza_"+i+"' placeholder='Dimensione (cm)'/>"+
-		          "</p>"+
-		          "<hr />";
-			  
-			 
-				 $('#dettaglio_cartelli').append(str);
-			}	
-	}
+	for(var i=0;i<numero_cartelli;i++){
+
+		str = "<h3>Cartello "+(i+1)+"</h3>"+
+			  "<p>"+				  
+			  "<label>Inserisci Figura C.d.S. o breve Descrizione:</label>"+		
+			  " <p>"+
+						"<input type='search' id='cerca_segnale_"+i+"' name='cerca_segnale_"+i+"' placeholder='Cerca Segnale'/>"+
+						"<a onclick='cerca_cartello("+i+")' data-role='button'>Cerca</a>"+ 
+						"<input type='hidden' id='cartello_segnale_"+i+"' name='cartello_segnale_"+i+"' />"+
+						"<ul id='suggestions_"+i+"' data-role='listview' data-inset='true' data-split-theme='d'></ul>"+
+			  " </p>"+
+			  "</p>"+
+		      "<p>"+
+	          "   <label>Supporto:</label>"+
+			  "	    <select name='cartello_supporto_"+i+"'>"+
+			  "        <option value='1' selected>Ferro</option>"+
+			  "        <option value='2'>Alluminio</option>"+
+			  "     </select>"+
+	          "</p>"+
+        	  "<p>"+
+              "   <label>Pellicola:</label>"+
+			  "     <select name='cartello_pellicola_"+i+"'>"+
+			  "        <option value='1' selected>E.G. Classe I</option>"+
+			  "        <option value='2'>H.I. Classe II</option>"+
+			  "        <option value='3'>H.I. Special III</option>"+
+			  "     </select>"+
+			  "</p>"+
+			  "<hr />"+
+			  "<p>"+
+	          "   <label>Tipo Intervento:</label>"+
+			  "      <select onchange='dettaglio_intervento_descrizione("+i+")' id='cartello_necessario_intervento_tipo_"+i+"' name='cartello_necessario_intervento_tipo_"+i+"'>"+
+			  "        <option value='0' selected>Non Necessario</option>"+
+			  "        <option value='1'>Sostituzione Parziale</option>"+
+			  "        <option value='2'>Sostituzione Totale</option>"+
+  			  "        <option value='3'>Soggetto a Manutenzione</option>"+
+			  "      </select>"+
+			  "</p>"+
+			  "<p id='div_necessario_intervento_descrizione_"+i+"' style='display:none;'>"+
+	          "   <label>Descrizione dell'intervento:</label>"+
+			  "	    <textarea id='cartello_necessario_intervento_descrizione_"+i+"' name='cartello_necessario_intervento_descrizione_"+i+"'></textarea>"+
+	          "</p>"+
+			  "<hr />"+
+			  "<p>"+
+	          "   <label>Forma:</label>"+
+			  "      <select onchange='dettaglio_forma("+i+")' id='cartello_forma_"+i+"' name='cartello_forma_"+i+"'>"+
+			  "        <option value='0' selected>Quadrato</option>"+
+			  "        <option value='1'>Rombo</option>"+
+			  "        <option value='2'>Rettangolo</option>"+
+  			  "        <option value='3'>Triangolo</option>"+
+			  "        <option value='4'>Cerchio</option>"+
+  			  "        <option value='5'>Ottagono</option>"+
+			  "      </select>"+
+			  "</p>"+
+			  "<p >"+
+	          "   <label>Lato (cm):</label>"+
+			  "      <input type='text' id='cartello_lato_"+i+"' name='cartello_lato_"+i+"' placeholder='Dimensione (cm)'/>"+
+	          "</p>"+
+	          "<p id='div_altezza_"+i+"' style='display:none;' >"+
+	          "   <label>Altezza (cm):</label>"+
+			  "      <input type='text' id='cartello_altezza_"+i+"' name='cartello_altezza_"+i+"' placeholder='Dimensione (cm)'/>"+
+	          "</p>"+
+	          "<hr />";
+		  
+		 
+			 $('#dettaglio_cartelli').append(str);
+	}	
 	
 	$('#dettaglio_cartelli').trigger('create');
 }
@@ -502,40 +514,33 @@ function dettaglio_omologazione(numero_cartelli){
 function dettaglio_pali(numero_pali){
 	
 	var str = "";
+		
+	for(var i=0;i<numero_pali;i++){
 	
-	// IMPLEMENTAZIONE DELLA CONFERMA
-	if(numero_pali >= 10 && !confirm("Sei sicuro di voler inserire tutti questi Pali?"))
-		return;
+		str = "<h3>Palo "+(i+1)+"</h3>"+
+			  "<p>"+
+            	 "<label>Dimensione:</label>"+
+				 "<input id='palo_dimensione_"+i+"' type='number' name='palo_dimensione_"+i+"' title='Formato 1.20' placeholder='Formato 1.20' />"+
+			  "</p>"+
+        	  "<p>"+
+    			 "<div data-role='fieldcontain' >"+					 
+					"<fieldset data-role='controlgroup'>"+
+						"<input type='checkbox' name='palo_controvento_"+i+"' id='palo_controvento_"+i+"' onclick='dettagli_palo_controvento("+i+")' class='custom' />"+
+						"<label for='palo_controvento_"+i+"'>Palo Controvento</label>"+
+				    "</fieldset>"+
+				 "</div>"+
+			     "<!-- se il cartello è omologato -->"+
+			     "<div id='palo_controvento_dettagli_"+i+"' style='display:none'>"+
+			    	"<p>"+
+			    		"<label>Dimensione Palo Controvento:</label><br />"+
+			    		"<input id='palo_controvento_dimensione_"+i+"' type='number' name='palo_controvento_dimensione_"+i+"' placeholder='Formato 1.20'/>"+
+			    	"</p>"+
+			   	 "</div>"+
+        	  "</p>"+
+        	  "<hr />";
 	
-	else{
+		$("#dettaglio_pali").append(str);
 		
-		for(var i=0;i<numero_pali;i++){
-		
-			str = "<h3>Palo "+(i+1)+"</h3>"+
-				  "<p>"+
-	            	 "<label>Dimensione:</label>"+
-					 "<input id='palo_dimensione_"+i+"' type='number' name='palo_dimensione_"+i+"' title='Formato 1.20' placeholder='Formato 1.20' />"+
-				  "</p>"+
-	        	  "<p>"+
-	    			 "<div data-role='fieldcontain' >"+					 
-						"<fieldset data-role='controlgroup'>"+
-							"<input type='checkbox' name='palo_controvento_"+i+"' id='palo_controvento_"+i+"' onclick='dettagli_palo_controvento("+i+")' class='custom' />"+
-							"<label for='palo_controvento_"+i+"'>Palo Controvento</label>"+
-					    "</fieldset>"+
-					 "</div>"+
-				     "<!-- se il cartello è omologato -->"+
-				     "<div id='palo_controvento_dettagli_"+i+"' style='display:none'>"+
-				    	"<p>"+
-				    		"<label>Dimensione Palo Controvento:</label><br />"+
-				    		"<input id='palo_controvento_dimensione_"+i+"' type='number' name='palo_controvento_dimensione_"+i+"' placeholder='Formato 1.20'/>"+
-				    	"</p>"+
-				   	 "</div>"+
-	        	  "</p>"+
-	        	  "<hr />";
-		
-			$("#dettaglio_pali").append(str);
-		
-		}
 	}
 	
 	$('#dettaglio_pali').trigger('create');
@@ -545,26 +550,18 @@ function dettaglio_staffe(numero_staffe){
 	
 	var str = "";
 	
-	// IMPLEMENTAZIONE DELLA CONFERMA
-	if(numero_staffe >= 10 && !confirm("Sei sicuro di voler inserire tutti queste Staffe?"))
-		return;
+	for(var i=0;i<numero_staffe;i++){
 	
-	else{
-		
-		for(var i=0;i<numero_staffe;i++){
-		
-			str = "<h3>Staffa "+(i+1)+"</h3>"+
-				  "<p>"+
-	        	  "<select name='staffa_"+i+"'>"+
-	        	  "  <option value='1' selected>Monofacciale</option>"+
-	        	  "  <option value='2'>Bifacciale</option>"+
-	        	  "</select>"+
-	        	  "</p>";
-	       
-	        $("#dettaglio_staffe").append(str);
+		str = "<h3>Staffa "+(i+1)+"</h3>"+
+			  "<p>"+
+        	  "<select name='staffa_"+i+"'>"+
+        	  "  <option value='1' selected>Monofacciale</option>"+
+        	  "  <option value='2'>Bifacciale</option>"+
+        	  "</select>"+
+        	  "</p>";
+       
+    $("#dettaglio_staffe").append(str);
 	     
-	    }
-   	
    	}
 	
 	$('#dettaglio_staffe').trigger('create');
