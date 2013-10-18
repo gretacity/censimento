@@ -1,7 +1,8 @@
-function successCallback(position){
+function successPosition(position){
 			
 	//console.log("gps callback");
-																
+	$("#latitude, #longitude,#accuracy").css("border","2px solid tranparent");
+										
 	// SCRIVO LATITUDINE E LONGITUDINE
 	var lon,lat,acc;
 	lat = $("#latitude").val();
@@ -14,24 +15,14 @@ function successCallback(position){
 	var acc_r = position.coords.accuracy;
 	
 	// POPOLA LA PRIMA VOLTA I DATI
-	if(lat == "" && lon == "" && acc == ""){
-		$("#latitude").val(lat_r);
-		$("#longitude").val(lon_r);
-		$("#accuracy").val(acc_r);
-	}
-	else{
-
-		// SE MIGLIORA LA PRECISIONE AGGIORNA
-		if(parseInt(acc_r) < parseInt(acc)){
-			$("#latitude").val(lat_r);
-			$("#longitude").val(lon_r);
-			$("#accuracy").val(acc_r);
-		}
-	}
-    
+	$("#latitude").val(lat_r);
+	$("#longitude").val(lon_r);
+	$("#accuracy").val(acc_r);
+	
+	$("#latitude, #longitude,#accuracy").css("background-color","#dff0d8");
 };
 						
-function errorCallback(error){
+function errorPosition(error){
     switch(error.code){
     case error.PERMISSION_DENIED:
         //document.write("PERMISSION DENIED");
@@ -52,13 +43,3 @@ function errorCallback(error){
     }
 }
 
-function disableSubmit(){
-	$("#submit").attr('disabled','disabled');
-}
-
-function enableSubmit(){
-	$("#submit").removeAttr('disabled');
-}
-function clearWatch(){
-   navigator.geolocation.clearWatch(watchID);
-}

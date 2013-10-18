@@ -1,6 +1,9 @@
 function validate(){
-			
-	var dimensione = new RegExp(/^((\d)+)(\.(\d)+)?$/);
+	
+	//alert("funzione di validazione");	
+	//var dimensione = new RegExp(/^((\d)+)(\.(\d)+)?$/);
+	var dimensione = new RegExp(/^(-?)(\d+)(\.\d+)?$/);
+
 	var numerico = new RegExp(/^[\d]+$/);
 
    	var validate = true;
@@ -59,7 +62,8 @@ function validate(){
 		
 	else{
 		
-		clearWatch(watchID);
+		// STOPPO LA RICHIESTA DELLA TRACCIA GPS
+		//clearWatch(watchID);
 		
 		// INVIA I DATI
 		return true;

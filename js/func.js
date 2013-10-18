@@ -1,29 +1,71 @@
-// INIZIALIZZA IL GPS
-//var watchID;
+function inizializzaAPP(){
 
-function initApplication(){
-
-	if(navigator.geolocation){
-	    
-	    // RECUPERA POSIZIONE NON APPENA SI AVVIA L'APPLICAZIONE	    
-	    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-	    	
-	}
+	// GENERALE ----------------------------------------------------------------------------
+	
+	// APRI DATABASE
+	db = window.openDatabase('record', '1.0', 'Censimenti da Sincronizzare',10485760);
+	
+	// INIZIALIZZA DATABASE
+	db.transaction(inizializzaDB, errorDB,successDB);
+	
+	// CONTROLLO LA DISPONIBILITA DEL GPS
+	if(navigator.geolocation)
+	    navigator.geolocation.getCurrentPosition(successPosition, errorPosition);
 	else{
 		console.log("geolocalizzazione non supportata");
 	    disableSubmit();
 	}
+
+	// ELIMINA FUNZIONAMENTO TASTO OK/CERCA 
+	$("input").keyup(function(e){ if(e.which == 13){}});
+
+	// CONTROLLA SE UTENTE LOGGATO
+	var userid = window.localStorage.getItem("userid");
+	if(userid == null || userid <= 0)
+		$("#loginbtn").removeClass("ui-disabled");
+		
+	function disableSubmit(){ $("#submit").attr('disabled','disabled');}
+	function enableSubmit(){ $("#submit").removeAttr('disabled');}
+
+
+	// PAGINA SYNC -------------------------------------------------------------------------
 	
-	// STICKY FOOTER
-	$(document).on("pagecreate", ".ui-page", function () {
-	    var $page  = $(this),
-	        vSpace = $page.children('.ui-header').outerHeight() + $page.children('.ui-footer').outerHeight() + $page.children('.ui-content').height();
-	
-	    if (vSpace < $(window).height()) {
-	        var vDiff = $(window).height() - $page.children('.ui-header').outerHeight() - $page.children('.ui-footer').outerHeight() - 30;
-	        $page.children('.ui-content').height(vDiff);
-	    }
+	// SE CLICCO SU INIZIA A CENSIRE
+	$("#inizia_censimento").tap(function(){
+		
+		// CONSOLE LOG
+		console.log("aggiorna e azzera i valori");		
+	    navigator.geolocation.getCurrentPosition(successPosition, errorPosition);
+	   
+	    // CAMBIA PAGINA (PRINCIPALE)
+	    $.mobile.changePage("#censimentoPage");	
+	    
+	    // SVUOTA I CAMPI IMPORTANTI 
+	    $("#latitude").val("");
+		$("#longitude").val("");
+		$("#accuracy").val("");
+			
+		// elimino i tag di foto selezionate
+		$("#tag_foto_fronte").remove();
+		$("#tag_foto_retro").remove();
+		$("#tag_foto_prospettiva").remove();
+		
+		// IMPOSTA IL COLORE ROSSO SU I TEXTBOX IMPORTANTI
+		$("#latitude, #longitude,#accuracy").css("background-color","#f2dede");
+				
+		// FORZA APERTURA DIV INFO GENERALI SU CENSIMENTO
+		$('#info_generali').trigger('expand').trigger('updatelayout');
+		
+
 	});
+
+	// GESTISCI IL FORM SULLA LOGIN PAGE
+	$(document).on('pageinit', '#loginPage', function() {
+		$("form").on("submit", false);
+		$('#submitBtn').on("click", handleLogin);
+	});
+	
+	// PAGINA CENSIMENTO -------------------------------------------------------------------	
 	
 	$("#acquisisci_qr").tap(function(){
 		
@@ -59,7 +101,7 @@ function initApplication(){
 	});
 	
 	// DISABILITO IL RETRO CARTELLO ALL'INIZIO DELL'APP
-	$( "#col_retro_cartello h3" ).addClass( "ui-disabled" );
+	$("#col_retro_cartello h3" ).addClass( "ui-disabled" );
 	
 	// SE CAMBIA NUMERO CARTELLI 
 	$("#add_dettaglio_cartelli").tap(function(){
@@ -232,31 +274,27 @@ function initApplication(){
 	
 	});
 	
-	
-	$("#inizia_censimento").tap(function(){
-		
-		// CONSOLE LOG
-		console.log("aggiorna e azzera i valori");		
-	    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-	   
-	    // CAMBIA PAGINA (PRINCIPALE)
-	    $.mobile.changePage("#roadpage");	
-	    
-	    // SVUOTA I CAMPI IMPORTANTI 
-	    $("#latitude").val("");
-		$("#longitude").val("");
-		$("#accuracy").val("");
-		
-		// IMPOSTA IL COLORE ROSSO SU I TEXTBOX IMPORTANTI
-		$("#latitude, #longitude,#accuracy").css("background-color","#f2dede");
-		
-		
-
-	});
 }
 
 //################################################################################################################
 // FUNZIONI ASSOCIATE AGLI EVENTI
+
+// SELEZIONA CARTELLO DA LISTA DI RICERCA
+function seleziona_cartello(index,value){
+	
+	// RIMUOVI GLI ALTRI RISULTATI DELLA RICERCA		
+	$('#suggestions_'+index+' li[id!='+value+']').remove();
+	
+	// INSERISCI DATO IN CAMPO NASCOSTO
+	$('#cartello_segnale_'+index).val(value);
+	
+	// CAMBIO COLORE DI SFONDO ALL'ELEMENTO DELLA LISTA
+	$('#suggestions_'+index+' li[id='+value+']').attr("data-theme", "b").removeClass("ui-btn-up-c").removeClass('ui-btn-hover-c').addClass("ui-btn-up-selezionato").addClass("ui-btn-hover-selezionato");
+
+	// SCRIVI CARTELLO SELEZIONATO
+	//$('#cartello_selezionato_messaggio_'+index).html("<i>Cartello Selezionato</i>").css("color","green");
+
+}
 
 function dettaglio_intervento_descrizione(indice){
 	
@@ -278,7 +316,6 @@ function dettaglio_intervento_descrizione(indice){
    	}
 	
 }
-
 
 function dettaglio_forma(indice){
 	
@@ -319,8 +356,8 @@ function dettagli_omologazione(indice){
     }
 }
 
-
 function dettagli_palo_controvento(indice){
+
 	
 	// SE PALO CONTROVENTO CHECK				
     if($("#palo_controvento_"+indice).is(':checked')) {		
@@ -339,44 +376,6 @@ function dettagli_palo_controvento(indice){
      		 $("#palo_controvento_dettagli_"+indice).fadeOut("slow");
     }
 }
-
-function dettagli_staffe(indice){
-	
-	// SE PALO CONTROVENTO CHECK				
-    if($("#palo_controvento_"+indice).is(':checked')) {		
-    		      			      
-      // APRI DETTAGLI PALO CONTROVENTO
-      $("#palo_controvento_dettagli_"+indice).trigger('create');
-      $("#palo_controvento_dettagli_"+indice).fadeIn("slow");
-      
-    } 
-    else{
-    
-      // SE DETTAGLI PALO CONTROVENTO APERTO
-   	  if($("#palo_controvento_dettagli_"+indice).css('display') != "none")
-   	  		
-   	  		 // CHIUDI DETTAGLI PALO CONTROVENTO
-     		 $("#palo_controvento_dettagli_"+indice).fadeOut("slow");
-    }
-}
-
-// SELEZIONA CARTELLO DA LISTA DI RICERCA
-function seleziona_cartello(index,value){
-	
-	// RIMUOVI GLI ALTRI RISULTATI DELLA RICERCA		
-	$('#suggestions_'+index+' li[id!='+value+']').remove();
-	
-	// INSERISCI DATO IN CAMPO NASCOSTO
-	$('#cartello_segnale_'+index).val(value);
-	
-	// CAMBIO COLORE DI SFONDO ALL'ELEMENTO DELLA LISTA
-	$('#suggestions_'+index+' li[id='+value+']').attr("data-theme", "b").removeClass("ui-btn-up-c").removeClass('ui-btn-hover-c').addClass("ui-btn-up-selezionato").addClass("ui-btn-hover-selezionato");
-
-	// SCRIVI CARTELLO SELEZIONATO
-	//$('#cartello_selezionato_messaggio_'+index).html("<i>Cartello Selezionato</i>").css("color","green");
-
-}
-
 
 function cambia_tipologia(select_tipologia_name,index){
 	// IMPOSTA LA TIPOLOGIA SELEZIONATA NELL'ARRAY DELLE TIPOLOGIE
@@ -560,7 +559,7 @@ function dettaglio_staffe(numero_staffe){
         	  "</select>"+
         	  "</p>";
        
-    $("#dettaglio_staffe").append(str);
+    	$("#dettaglio_staffe").append(str);
 	     
    	}
 	
@@ -602,7 +601,6 @@ function controlla_marchiatura(indice){
 	}
 }
 
-
 function inizializza_road(){
 	
 	// azzero i campi principali
@@ -624,7 +622,7 @@ function inizializza_road(){
 	$("#dettaglio_cartelli").html("").css('display','none');
 
 	// azzera retro cartelli
-	$( "#col_retro_cartello h3" ).addClass( "ui-disabled" );
+	$("#col_retro_cartello h3" ).addClass( "ui-disabled" );
 	$("#dettaglio_omologazione").html("").css('display','none');
 
 	// azzero i pali
@@ -638,6 +636,6 @@ function inizializza_road(){
 	$("#dettaglio_staffe").html("").css('display','none');
 	
     // reinizializzo la pagina
-    $("#roadpage div[data-role='content']").trigger('create');
+    $("#censimentoPage div[data-role='content']").trigger('create');
 	
 }
