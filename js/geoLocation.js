@@ -14,20 +14,11 @@ function successCallback(position){
 	var acc_r = position.coords.accuracy;
 	
 	// POPOLA LA PRIMA VOLTA I DATI
-	if(lat == "" && lon == "" && acc == ""){
-		$("#latitude").val(lat_r);
-		$("#longitude").val(lon_r);
-		$("#accuracy").val(acc_r);
-	}
-	else{
-
-		// SE MIGLIORA LA PRECISIONE AGGIORNA
-		if(parseInt(acc_r) < parseInt(acc)){
-			$("#latitude").val(lat_r);
-			$("#longitude").val(lon_r);
-			$("#accuracy").val(acc_r);
-		}
-	}
+	$("#latitude").val(lat_r);
+        $("#longitude").val(lon_r);
+        $("#accuracy").val(acc_r);
+        
+        $("#latitude, #longitude,#accuracy").css("background-color","#dff0d8");
     
 };
 						
