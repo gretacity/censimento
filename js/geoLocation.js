@@ -1,7 +1,5 @@
 function successCallback(position){
 			
-        alert("gps_callback");
-        
 	// SCRIVO LATITUDINE E LONGITUDINE
 	var lon,lat,acc;
 	lat = $("#latitude").val();
@@ -24,8 +22,6 @@ function successCallback(position){
 						
 function errorCallback(error){
     
-    alert("error gps_callback");	
-	
     switch(error.code){
     case error.PERMISSION_DENIED:
         //document.write("PERMISSION DENIED");
