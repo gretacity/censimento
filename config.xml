@@ -7,7 +7,12 @@
    <name>gretacity</name>
    <description>La citta' in tasca</description>
    <author href="http://www.gretacity.com" email="info@gretacity.com">gretacity</author>
+  
+   <!-- permessi per l'accesso ai sistemi interni -->
+   <feature name="http://api.phonegap.com/1.0/camera"/>
    <feature name="http://api.phonegap.com/1.0/network"/>
+   <feature name="http://api.phonegap.com/1.0/geolocation"/>
+   
    <preference name="phonegap-version" value="2.9.0" />
    <preference name="target-device" value="universal" />
    
