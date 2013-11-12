@@ -70,9 +70,9 @@ function inizializzaAPP(){
 	$("#acquisisci_qr").tap(function(){
 		
 		// building con android
-		var scanner = window.plugins.barcodeScanner;
+		//var scanner = window.plugins.barcodeScanner;
 		// building con phonegap build
-		//var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+		var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 		var pattern_qr = new RegExp(/[\d]+$/);
 		
 		// BLOCCA TASTO QR
