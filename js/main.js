@@ -46,6 +46,8 @@ function initDb(tx){
   
   // CONTROLLA SE SONO PRESENTI DATI DA SINCRONIZZARE
   check_data_to_sync(db);
+  
+  $("#sync_info").val();
 }
 
 function successInitDb(){
@@ -83,5 +85,4 @@ function check_data_to_sync(db){
 		});
   		
   	}
-}
-        	
+}     	
