@@ -160,7 +160,7 @@ var DBSYNC = {
 		                    self.syncResult.localDataUpdated = self.syncResult.nbUpdated > 0;
 		                    self.syncResult.syncOK = true;
 		                    self.syncResult.codeStr = 'syncOk';
-		                    self.syncResult.message = 'Dati inviati. (attendi risposta);
+		                    self.syncResult.message = 'Dati inviati. (attendi risposta)';
 		                    self.syncResult.serverAnswer = serverData;//include the original server answer, just in case
 		                    self.cbEndSync(self.syncResult);
 		                });
