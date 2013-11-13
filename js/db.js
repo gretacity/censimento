@@ -7,13 +7,16 @@ function inizializzaDB(tx){
   tx.executeSql('CREATE TABLE IF NOT EXISTS censimento_foto (censimento_id,foto,tipo_foto)');
   tx.executeSql('CREATE TABLE IF NOT EXISTS censimento_palo (censimento_id,dimensione,palo_controvento,dimensione_controvento)');
   tx.executeSql('CREATE TABLE IF NOT EXISTS censimento_staffa (censimento_id, modello_staffa)');
+  tx.executeSql('CREATE TABLE IF NOT EXISTS censimento_bene (censimento_id, tipologia_bene_id,nome,descrizione,annotazioni)');
+
   
   TABLES_TO_SYNC = [
     {tableName : 'censimento', idName : 'rowid'},
     {tableName : 'censimento_cartello', idName : 'rowid'},
     {tableName : 'censimento_foto', idName : 'rowid'},
     {tableName : 'censimento_palo', idName : 'rowid'},
-    {tableName : 'censimento_staffa', idName : 'rowid'}
+    {tableName : 'censimento_staffa', idName : 'rowid'},
+    {tableName : 'censimento_bene', idName : 'rowid'}
   ];
 
   sync_info = new Array();
@@ -29,8 +32,8 @@ function inizializzaDB(tx){
 function successDB(){
 	console.log("DATABASE INIZIALIZZATO CON SUCCESSO");
 	
-	// abilita il pulsante di inizia censimento
-    $("#inizia_censimento").removeClass('ui-disabled');   
+	// abilita il pulsante di inizia censimento (cosa censire)
+    $("#infogenerali_btn").removeClass('ui-disabled');   
 
 }
 

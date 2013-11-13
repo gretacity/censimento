@@ -49,7 +49,7 @@
 				
 					<a id='sync_data' onclick='sync_data()' class='ui-disabled' data-role="button">Sincronizza Censimenti</a> 
 					<a id='loginbtn' href="#loginPage" class='ui-disabled' data-role="button">Effettua il Login</a> 
-					<a id='inizia_censimento' href="#censimentoPage" class='ui-disabled' data-role="button">Inizia a Censire</a> 
+					<a id='infogenerali_btn' class='ui-disabled' data-role="button">Inizia a Censire</a>
 						
 					<div id='sync_info'>
 						<h3 id='sync_info_title'>Operazioni</h3>
@@ -60,9 +60,65 @@
 			
     	</div>
     	<!-- /index -->
+    	
+     	<!-- infoGenerali index -->
+     	<div data-role="page" id='infoGeneraliPage'>
+    		<!-- header -->
+			<div data-role="header" >
+				<a href="#indexPage" data-icon="home">Home</a>
+				<h1>censiq</h1>
+			</div>
+			<div data-role="content">				
+				<h3>Informazioni Generali</h3>
+		
+						<div data-role="collapsible-set" data-theme="c" data-content-theme="c">
+						
+							<div data-role="collapsible" data-collapsed="false" id='info_generali'>
+							<h3>Informazioni Generali</h3>
+								<div>
+									<p>
+				                			<label>Qr-Code: </label>
+				                			<input type='number' id='qr_code' name='qr_code'>
+				                			<button id='acquisisci_qr'>Acquisisci QR-Code</button>
+									</p>
+				              	    <p>
+				                			<label>Latitudine:</label><input type='text' name='latitudine' id='latitude' >
+				                	</p>
+				                	<p>
+				                   			<label>Longitudine:</label><input type='text' name='longitudine' id='longitude' >
+									</p>
+									<p>
+				                   			<label>Scarto (m): </label><input type='text' name='accuracy' id='accuracy' >
+									</p>
+									</p>
+									<p>
+				                			<label>Fronte:</label><br />
+				                			<a id='cattura_foto_fronte' data-role='button'>Seleziona</a> 
+				                			<input type='hidden' id='foto_fronte' name='foto_fronte' >
+				                	</p>
+				                	<p>
+				                			<label>Retro:</label><br />		                			
+				                			<a id='cattura_foto_retro' data-role='button'>Seleziona</a> 
+											<input type='hidden' id='foto_retro' name='foto_retro' >
+				                	</p>
+				                	<p>
+				                			<label>Prospettiva:</label><br />
+				                			<a id='cattura_foto_prospettiva' data-role='button'>Seleziona</a>
+				                			<input type='hidden' id='foto_prospettiva' name='foto_prospettiva'>					               
+				                	</p>
+				                </div>
+							</div>
+							
+							<p align='center' id='submit-info_generali'>
+		                			<button id='salva-info_generaliBtn'>Salva</button>
+		                	</p>
+					</div>
+			</div>
+    	</div>
+     	<!-- /infoGenerali index -->
      	
-     	<!-- censimento index -->
-     	<div data-role="page" id='censimentoPage'>
+     	<!-- censimento Segnaletica index -->
+     	<div data-role="page" id='censimentoSegnaleticaPage'>
 
 			<!-- header -->
 			<div data-role="header" >

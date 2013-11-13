@@ -1,3 +1,51 @@
+function save_infoGenerali(){
+	
+	// SE I DATI SONO VALIDATI
+	if(validate_generali()){
+				
+		//console.log("chiamo la funzione di salvataggio");
+	    db.transaction(dataSave, errordataSave,successdataSave);
+	    
+	    // DISABILITO IL PULSANTE
+	    $("#save").button('disable').addClass("ui-disabled");
+		$('#save').button('refresh');  
+	} 
+}
+function dataSave_generali(){
+	
+	alert("salva info generali func");
+	
+	// ESEGUO LA TRANSAZIONE RECUPERANDO TUTTO IL RESTO
+	function(tx,res){
+	
+		// RECUPERA I DATI E CONTROLLA SE BENE O SEGNALETICA
+		var qr_code = $("#qr_code").val();
+		var latitude = $("#latitude").val();
+		var longitude = $("#longitude").val();
+		
+		// INSERISCO IL CENSIMENTO
+		tx.executeSql("INSERT INTO censimento (qr_code, lat,lon,sync) VALUES (?,?,?,0)",[qr_code,latitude,longitude],
+		
+		var censimento_ins = res.insertId;
+		
+		// RECUPERA LE FOTO
+		var foto_fronte = $("#foto_fronte").val();
+		var foto_retro = $("#foto_retro").val();
+		var foto_prospettiva = $("#foto_prospettiva").val();
+		
+		if(foto_fronte != "")
+			tx.executeSql('INSERT INTO censimento_foto (censimento_id,foto,tipo_foto) VALUES (?,?,?)',[censimento_ins,foto_fronte,1]);
+	
+		if(foto_retro != "")
+			tx.executeSql('INSERT INTO censimento_foto (censimento_id,foto,tipo_foto) VALUES (?,?,?)',[censimento_ins,foto_retro,2]);
+			
+		if(foto_prospettiva != "")
+			tx.executeSql('INSERT INTO censimento_foto (censimento_id,foto,tipo_foto) VALUES (?,?,?)',[censimento_ins,foto_prospettiva,3]);
+		
+	}
+	
+}
+
 function save(){	
 	
 	// SE I DATI SONO VALIDATI
@@ -18,19 +66,7 @@ function dataSave(tx){
 	//alert("salvo i dati");
 	
 	//console.log("sono in data save");
-	
-	// RECUPERA I DATI E CONTROLLA SE BENE O SEGNALETICA
-	var qr_code = $("#qr_code").val();
-	var latitude = $("#latitude").val();
-	var longitude = $("#longitude").val();
-	
-	var numero_cartelli = parseInt($("#numero_cartelli").val());
-	var numero_pali = parseInt($("#numero_pali").val());
-	var numero_staffe = parseInt($("#numero_staffe").val());
-	
-	// INSERISCO IL CENSIMENTO
-	tx.executeSql("INSERT INTO censimento (qr_code, lat,lon,sync) VALUES (?,?,?,0)",[qr_code,latitude,longitude],
-	
+
 		// ESEGUO LA TRANSAZIONE RECUPERANDO TUTTO IL RESTO
 		function(tx,res){
 			
@@ -107,22 +143,7 @@ function dataSave(tx){
 				}
 
 			}
-			
-			// RECUPERA LE FOTO
-			var foto_fronte = $("#foto_fronte").val();
-			var foto_retro = $("#foto_retro").val();
-			var foto_prospettiva = $("#foto_prospettiva").val();
-			
-			if(foto_fronte != "")
-				tx.executeSql('INSERT INTO censimento_foto (censimento_id,foto,tipo_foto) VALUES (?,?,?)',[censimento_ins,foto_fronte,1]);
-	
-			if(foto_retro != "")
-				tx.executeSql('INSERT INTO censimento_foto (censimento_id,foto,tipo_foto) VALUES (?,?,?)',[censimento_ins,foto_retro,2]);
-				
-			if(foto_prospettiva != "")
-				tx.executeSql('INSERT INTO censimento_foto (censimento_id,foto,tipo_foto) VALUES (?,?,?)',[censimento_ins,foto_prospettiva,3]);
-				
-			
+
 			// RECUPERA E PROCESSA IL NUMERO DEI PALI
 			if(numero_pali > 0){
 				

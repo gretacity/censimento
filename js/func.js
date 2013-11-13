@@ -30,15 +30,81 @@ function inizializzaAPP(){
 
 	// PAGINA SYNC -------------------------------------------------------------------------
 	
-	// SE CLICCO SU INIZIA A CENSIRE
-	$("#inizia_censimento").tap(function(){
+	$("#infogenerali_btn").tap(function(){
+		alert("azzera info generali");
 		
 		// CONSOLE LOG
 		console.log("aggiorna e azzera i valori");		
 	    navigator.geolocation.getCurrentPosition(successPosition, errorPosition);
 	   
 	    // CAMBIA PAGINA (PRINCIPALE)
-	    $.mobile.changePage("#censimentoPage");	
+	    $.mobile.changePage("#infoGeneraliPage");	
+	    
+	    // SVUOTA I CAMPI IMPORTANTI 
+	    $("#latitude").val("");
+		$("#longitude").val("");
+		$("#accuracy").val("");
+			
+		// elimino i tag di foto selezionate
+		$("#tag_foto_fronte").remove();
+		$("#tag_foto_retro").remove();
+		$("#tag_foto_prospettiva").remove();
+		
+		// IMPOSTA IL COLORE ROSSO SU I TEXTBOX IMPORTANTI
+		$("#latitude, #longitude,#accuracy").css("background-color","#f2dede");	
+	});
+	
+	$("#salva-info_generaliBtn").tap(function(event){
+		event.preventDefault();
+		
+		alert("salva info generali tap");
+		save_infoGenerali();
+		
+	});
+
+	
+	
+	/*
+	// SE CLICCO SU INIZIA A CENSIRE SEGNALETICA
+	$("#inizia_censimento_segnaletica").tap(function(){
+		
+		// CONSOLE LOG
+		console.log("aggiorna e azzera i valori");		
+	    navigator.geolocation.getCurrentPosition(successPosition, errorPosition);
+	   
+	    // CAMBIA PAGINA (PRINCIPALE)
+	    $.mobile.changePage("#censimentoSegnaleticaPage");	
+	    
+	    // SVUOTA I CAMPI IMPORTANTI 
+	    $("#latitude").val("");
+		$("#longitude").val("");
+		$("#accuracy").val("");
+			
+		// elimino i tag di foto selezionate
+		$("#tag_foto_fronte").remove();
+		$("#tag_foto_retro").remove();
+		$("#tag_foto_prospettiva").remove();
+		
+		// IMPOSTA IL COLORE ROSSO SU I TEXTBOX IMPORTANTI
+		$("#latitude, #longitude,#accuracy").css("background-color","#f2dede");
+				
+		// FORZA APERTURA DIV INFO GENERALI SU CENSIMENTO
+		$('#info_generali').trigger('expand').trigger('updatelayout');
+	});
+	
+	
+	// SE CLICCO SU INIZIA A CENSIRE BENI
+	$("#inizia_censimento_beni").tap(function(){
+		
+		alert("inizia censimento dei beni ");
+		
+		/*
+		// CONSOLE LOG
+		console.log("aggiorna e azzera i valori");		
+	    navigator.geolocation.getCurrentPosition(successPosition, errorPosition);
+	   
+	    // CAMBIA PAGINA (PRINCIPALE)
+	    $.mobile.changePage("#censimentoSegnaleticaPage");	
 	    
 	    // SVUOTA I CAMPI IMPORTANTI 
 	    $("#latitude").val("");
@@ -56,15 +122,15 @@ function inizializzaAPP(){
 		// FORZA APERTURA DIV INFO GENERALI SU CENSIMENTO
 		$('#info_generali').trigger('expand').trigger('updatelayout');
 		
-
 	});
-
+	*/
+	
 	// GESTISCI IL FORM SULLA LOGIN PAGE
 	$(document).on('pageinit', '#loginPage', function() {
 		$("form").on("submit", false);
 		$('#submitBtn').on("click", handleLogin);
 	});
-	
+
 	// PAGINA CENSIMENTO -------------------------------------------------------------------	
 	
 	$("#acquisisci_qr").tap(function(){
