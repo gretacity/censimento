@@ -31,10 +31,9 @@ function inizializzaAPP(){
 	// PAGINA SYNC -------------------------------------------------------------------------
 	
 	$("#infogenerali_btn").tap(function(){
-		alert("azzera info generali");
-		
+				
 		// CONSOLE LOG
-		console.log("aggiorna e azzera i valori");		
+		console.log("aggiorna e azzera i valori di info generali");		
 	    navigator.geolocation.getCurrentPosition(successPosition, errorPosition);
 	   
 	    // CAMBIA PAGINA (PRINCIPALE)
@@ -57,16 +56,13 @@ function inizializzaAPP(){
 	$("#salva-info_generaliBtn").tap(function(event){
 		event.preventDefault();
 		
-		alert("salva info generali tap");
-		save_infoGenerali();
+		console.log("salva informazioni generali di censimento");
 		
+		save_infoGenerali();
 	});
 
-	
-	
-	/*
 	// SE CLICCO SU INIZIA A CENSIRE SEGNALETICA
-	$("#inizia_censimento_segnaletica").tap(function(){
+	$("#segnaletica_censimentoBtn").tap(function(){
 		
 		// CONSOLE LOG
 		console.log("aggiorna e azzera i valori");		
@@ -94,41 +90,35 @@ function inizializzaAPP(){
 	
 	
 	// SE CLICCO SU INIZIA A CENSIRE BENI
-	$("#inizia_censimento_beni").tap(function(){
+	$("#bene_censimentoBtn").tap(function(){
 		
-		alert("inizia censimento dei beni ");
-		
-		/*
 		// CONSOLE LOG
-		console.log("aggiorna e azzera i valori");		
-	    navigator.geolocation.getCurrentPosition(successPosition, errorPosition);
+		console.log("aggiorna e azzera i valori beni");		
 	   
 	    // CAMBIA PAGINA (PRINCIPALE)
-	    $.mobile.changePage("#censimentoSegnaleticaPage");	
+	    $.mobile.changePage("#censimentoBenePage");	
 	    
 	    // SVUOTA I CAMPI IMPORTANTI 
-	    $("#latitude").val("");
-		$("#longitude").val("");
-		$("#accuracy").val("");
-			
-		// elimino i tag di foto selezionate
-		$("#tag_foto_fronte").remove();
-		$("#tag_foto_retro").remove();
-		$("#tag_foto_prospettiva").remove();
-		
-		// IMPOSTA IL COLORE ROSSO SU I TEXTBOX IMPORTANTI
-		$("#latitude, #longitude,#accuracy").css("background-color","#f2dede");
-				
-		// FORZA APERTURA DIV INFO GENERALI SU CENSIMENTO
-		$('#info_generali').trigger('expand').trigger('updatelayout');
+	    $("#nome").val("");
+		$("#descrizione").val("");
+		$("#annotazioni").val("");
 		
 	});
-	*/
 	
 	// GESTISCI IL FORM SULLA LOGIN PAGE
 	$(document).on('pageinit', '#loginPage', function() {
 		$("form").on("submit", false);
 		$('#submitBtn').on("click", handleLogin);
+	});
+	
+	// GESTISCI IL FORM SULLA BENE PAGE
+	$(document).on('pageinit', '#censimentoBenePage', function() {
+		$.each(bn_bene_tipologia,function(key,value){
+			$("#tipologia_bene_id").append("<option value='"+value.id+"'>"+value.label+"</option>");
+		});
+		
+		// aggiorna la select
+        $('#tipologia_bene_id').selectmenu('refresh', true);
 	});
 
 	// PAGINA CENSIMENTO -------------------------------------------------------------------	
@@ -671,7 +661,7 @@ function controlla_marchiatura(indice){
 	}
 }
 
-function inizializza_road(){
+function inizializza_Generali(){
 	
 	// azzero i campi principali
 	$("#qr_code").val("");	
@@ -685,7 +675,9 @@ function inizializza_road(){
 	$("#tag_foto_fronte").remove();
 	$("#tag_foto_retro").remove();
 	$("#tag_foto_prospettiva").remove();
+}
 
+function inizializza_Segnaletica(){
 	// azzera cartelli
 	$("#numero_cartelli").val("0");
 	$("#numero_cartelli").removeAttr('readonly');
@@ -706,6 +698,16 @@ function inizializza_road(){
 	$("#dettaglio_staffe").html("").css('display','none');
 	
     // reinizializzo la pagina
-    $("#censimentoPage div[data-role='content']").trigger('create');
+    $("#censimentoSegnaleticaPage div[data-role='content']").trigger('create');
 	
+}
+
+function inizializza_Beni(){
+	
+	$("#nome").val("");
+	$("#descrizione").val("");
+	$("#annotazioni").val("");
+	
+    $("#censimentoBenePage div[data-role='content']").trigger('create');
+
 }

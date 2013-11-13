@@ -1,21 +1,16 @@
-function validate(){
+var dimensione = new RegExp(/^(-?)(\d+)(\.\d+)?$/);
+var numerico = new RegExp(/^[\d]+$/);
+
+function validate_Generali(){
 	
-	//alert("funzione di validazione");	
-	//var dimensione = new RegExp(/^((\d)+)(\.(\d)+)?$/);
-	var dimensione = new RegExp(/^(-?)(\d+)(\.\d+)?$/);
-
-	var numerico = new RegExp(/^[\d]+$/);
-
    	var validate = true;
    	var message = "";
-   	
+	
     var qr_code = $("#qr_code").val();
     var latitude = $("#latitude").val();
     var longitude = $("#longitude").val();
-    var numero_cartelli = $("#numero_cartelli").val();
-        
-    // BLOCCHI
- 	if( (qr_code == "" || !(qr_code.match(numerico))) && validate ){
+	
+	if( (qr_code == "" || !(qr_code.match(numerico))) && validate ){
  		prec = "#qr_code";
  		message = "Qr-Code non valido , formato numerico";
  		validate = false;
@@ -33,6 +28,21 @@ function validate(){
  		validate = false;	
  	}
  	
+ 	if(validate)
+ 		return true;
+ 	
+ 	alert(message);
+ 	return false;
+ 	
+}
+
+function validate_Segnaletica(){
+
+   	var validate = true;
+   	var message = "";
+   	   	  
+    // BLOCCHI
+    var numero_cartelli = $("#numero_cartelli").val();
  	if( (numero_cartelli == "" || !(numero_cartelli.match(numerico))) && validate){
  		prec = "#numero_cartelli";
  		message = "Numero Cartelli non valido , maggiore di 0";
@@ -56,19 +66,14 @@ function validate(){
  		}
  	}
  	
+	if(validate)
+ 		return true;
  	
-	if(!validate)
-		alert(message);
-		
-	else{
-		
-		// STOPPO LA RICHIESTA DELLA TRACCIA GPS
-		//clearWatch(watchID);
-		
-		// INVIA I DATI
-		return true;
+ 	alert(message);
+ 	return false;
+}
 
-	}
+function validate_Beni(){
+	return true;
 	
-	return false;
 }

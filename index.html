@@ -28,6 +28,9 @@
         
         <!-- database cartelli -->
         <script type="text/javascript" src="js/ss_segnale.js"></script>
+        <!-- database bene_tipologia -->
+        <script type="text/javascript" src="js/bn_bene_tipologia.js"></script>
+
         
         <script type="text/javascript">
         	$(document).one('deviceready', inizializzaAPP);
@@ -60,6 +63,20 @@
 			
     	</div>
     	<!-- /index -->
+    	<!-- cosa censire -->
+		<div data-role="page" id='cosa_censirePage'>
+    		<!-- header -->
+			<div data-role="header" >
+				<a href="#indexPage" data-icon="home">Home</a>
+				<h1>censiq</h1>
+			</div>
+			<div data-role="content">	
+				<a id='bene_censimentoBtn' data-role="button">Bene Comunale</a>
+				<a id='segnaletica_censimentoBtn'  data-role="button">Segnaletica Stradale</a>
+			</div>
+		</div>		
+    	
+    	<!-- /cosa censire -->
     	
      	<!-- infoGenerali index -->
      	<div data-role="page" id='infoGeneraliPage'>
@@ -117,6 +134,49 @@
     	</div>
      	<!-- /infoGenerali index -->
      	
+     	<!-- censimento Beni index -->
+ 		<div data-role="page" id='censimentoBenePage'>
+    		<!-- header -->
+			<div data-role="header" >
+				<a href="#indexPage" data-icon="home">Home</a>
+				<h1>censiq</h1>
+			</div>
+			<div data-role="content">	
+				 <h3>Censimento Beni</h3>
+		
+						<div data-role="collapsible-set" data-theme="c" data-content-theme="c">
+						
+							<div data-role="collapsible" data-collapsed="false">
+								<h3>Informazioni</h3>
+								<div>
+									<p>
+				                			<label>Tipologia Bene:</label>
+				                			<select name='tipologia_bene_id' id='tipologia_bene_id'>			                				
+				                			</select>
+				                	</p>
+									<p>
+				                			<label>Nome:</label>
+				                			<input type='text' name='nome' id='nome' value='' >
+				                	</p>
+				                	<p>
+				                			<label>Descrizione:</label>
+				                			<textarea name='descrizione' id='descrizione'></textarea>	
+				                	</p>			                	
+				                	<p>
+				                			<label>Annotazioni:</label>
+				                			<textarea name='annotazioni' id='annotazioni'></textarea>	
+				                	</p>
+				                	
+								</div>
+							</div>
+							<p align='center' id='submit-beni'>
+	                			<button id='salva-BeniBtn' onclick='save_Beni();'>Salva</button>
+	                		</p>
+						</div>
+			</div>
+		</div>	
+     	<!-- /censimento Beni index -->
+     	
      	<!-- censimento Segnaletica index -->
      	<div data-role="page" id='censimentoSegnaleticaPage'>
 
@@ -132,42 +192,6 @@
 		
 							<div data-role="collapsible-set" data-theme="c" data-content-theme="c">
 							
-								<div data-role="collapsible" data-collapsed="false" id='info_generali'>
-								<h3>Informazioni Generali</h3>
-									<div>
-										<p>
-					                			<label>Qr-Code: </label>
-					                			<input type='number' id='qr_code' name='qr_code'>
-					                			<button id='acquisisci_qr'>Acquisisci QR-Code</button>
-										</p>
-					              	    <p>
-					                			<label>Latitudine:</label><input type='text' name='latitudine' id='latitude' >
-					                	</p>
-					                	<p>
-					                   			<label>Longitudine:</label><input type='text' name='longitudine' id='longitude' >
-										</p>
-										<p>
-					                   			<label>Scarto (m): </label><input type='text' name='accuracy' id='accuracy' >
-										</p>
-										</p>
-										<p>
-					                			<label>Fronte:</label><br />
-					                			<a id='cattura_foto_fronte' data-role='button'>Seleziona</a> 
-					                			<input type='hidden' id='foto_fronte' name='foto_fronte' >
-					                	</p>
-					                	<p>
-					                			<label>Retro:</label><br />		                			
-					                			<a id='cattura_foto_retro' data-role='button'>Seleziona</a> 
-												<input type='hidden' id='foto_retro' name='foto_retro' >
-					                	</p>
-					                	<p>
-					                			<label>Prospettiva:</label><br />
-					                			<a id='cattura_foto_prospettiva' data-role='button'>Seleziona</a>
-					                			<input type='hidden' id='foto_prospettiva' name='foto_prospettiva'>					               
-					                	</p>
-					                </div>
-								</div>
-								
 								<div data-role="collapsible">
 									<h3>Cartello</h3>
 									<div>
@@ -223,7 +247,7 @@
 							</div>
 		
 							<p align='center' id='submit-p'>
-		                			<button onclick='save();'>Salva</button>
+		                			<button id='salva-SegnaleticaBtn' onclick='save_Segnaletica();'>Salva</button>
 		                	</p>
 		                	
 		        </div>
