@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 	<widget xmlns     = "http://www.w3.org/ns/widgets"
         	xmlns:gap = "http://phonegap.com/ns/1.0"
-        	id        = "com.gretacity.app"
+        	id        = "com.gretacity.censiq.app"
         	version   = "1.5">
 
-   <name>gretacity</name>
+   <name>censiq</name>
    <description>La citta' in tasca</description>
-   <author href="http://www.gretacity.com" email="info@gretacity.com">gretacity</author>
+   <author href="http://www.gretacity.com" email="info@gretacity.com">censiq</author>
   
    <!-- permessi per l'accesso ai sistemi interni -->
    <feature name="http://api.phonegap.com/1.0/camera"/>
