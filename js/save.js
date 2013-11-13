@@ -66,7 +66,8 @@ function dataSave(tx){
 					var forma = $("#cartello_forma_"+i).val();
 					var lato = $("#cartello_lato_"+i).val();
 					var altezza = $("#cartello_altezza_"+i).val();
-					
+					var particolari_descrizione = $("#particolari_descrizione_"+i).val();
+										
 					// RECUPERA DATI OMOLOGAZIONE
 					var omologato = "";
 					var ditta_prod = "";
@@ -98,9 +99,10 @@ function dataSave(tx){
 					console.log("cartello_forma "+forma);
 					console.log("cartello_lato "+lato);
 					console.log("cartello_altezza "+altezza);
+					console.log("particolari_descrizione"+particolari_descrizione);
 					*/
 					
-					tx.executeSql('INSERT INTO censimento_cartello (censimento_id,segnale_id,pellicola_id,supporto_id,marchiato_ce_ck,omologato_ck,ditta_produttrice,ditta_installatrice,data_installazione,ordinanza_n,ordinanza_del,necessario_intervento_tipo,necessario_intervento_descrizione,forma,lato,altezza) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',[censimento_ins,cartello_segnale,cartello_pellicola,cartello_supporto,marchiato_ce,omologato,ditta_prod,ditta_inst,data_inst,ord_n,ord_del,necessario_intervento_tipo,necessario_intervento_descrizione,forma,lato,altezza]);
+					tx.executeSql('INSERT INTO censimento_cartello (censimento_id,segnale_id,pellicola_id,supporto_id,marchiato_ce_ck,omologato_ck,ditta_produttrice,ditta_installatrice,data_installazione,ordinanza_n,ordinanza_del,necessario_intervento_tipo,necessario_intervento_descrizione,forma,lato,altezza,particolari_descrizione) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',[censimento_ins,cartello_segnale,cartello_pellicola,cartello_supporto,marchiato_ce,omologato,ditta_prod,ditta_inst,data_inst,ord_n,ord_del,necessario_intervento_tipo,necessario_intervento_descrizione,forma,lato,altezza,particolari_descrizione]);
 
 				}
 

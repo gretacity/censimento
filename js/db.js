@@ -3,7 +3,7 @@ var db = null;
 function inizializzaDB(tx){
 	
   tx.executeSql('CREATE TABLE IF NOT EXISTS censimento (qr_code,lat,lon,sync)');
-  tx.executeSql('CREATE TABLE IF NOT EXISTS censimento_cartello (censimento_id,segnale_id,pellicola_id,supporto_id,marchiato_ce_ck,omologato_ck,ditta_produttrice,ditta_installatrice,data_installazione,ordinanza_n,ordinanza_del,necessario_intervento_tipo,necessario_intervento_descrizione,forma,lato,altezza)');
+  tx.executeSql('CREATE TABLE IF NOT EXISTS censimento_cartello (censimento_id,segnale_id,pellicola_id,supporto_id,marchiato_ce_ck,omologato_ck,ditta_produttrice,ditta_installatrice,data_installazione,ordinanza_n,ordinanza_del,necessario_intervento_tipo,necessario_intervento_descrizione,forma,lato,altezza,particolari_descrizione)');
   tx.executeSql('CREATE TABLE IF NOT EXISTS censimento_foto (censimento_id,foto,tipo_foto)');
   tx.executeSql('CREATE TABLE IF NOT EXISTS censimento_palo (censimento_id,dimensione,palo_controvento,dimensione_controvento)');
   tx.executeSql('CREATE TABLE IF NOT EXISTS censimento_staffa (censimento_id, modello_staffa)');

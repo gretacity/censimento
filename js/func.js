@@ -70,9 +70,9 @@ function inizializzaAPP(){
 	$("#acquisisci_qr").tap(function(){
 		
 		// building con android
-		//var scanner = window.plugins.barcodeScanner;
+		var scanner = window.plugins.barcodeScanner;
 		// building con phonegap build
-		var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+		//var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 		var pattern_qr = new RegExp(/[\d]+$/);
 		
 		// BLOCCA TASTO QR
@@ -449,6 +449,10 @@ function dettaglio_cartelli(numero_cartelli){
 	          "<p id='div_altezza_"+i+"' style='display:none;' >"+
 	          "   <label>Altezza (cm):</label>"+
 			  "      <input type='text' id='cartello_altezza_"+i+"' name='cartello_altezza_"+i+"' placeholder='Dimensione (cm)'/>"+
+	          "</p>"+
+  	          "<p id='div_particolari_descrizione_"+i+"' >"+
+	          "   <label>Particolari Descrizione:</label>"+
+			  "	    <textarea id='particolari_descrizione_"+i+"' name='particolari_descrizione_"+i+"'></textarea>"+
 	          "</p>"+
 	          "<hr />";
 		  
