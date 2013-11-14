@@ -185,6 +185,10 @@ var DBSYNC = {
     getLastSyncDate : function() {
         return this.syncInfo.lastSyncDate;
     },
+      // Usefull to tell the server to resend all the data from a particular Date (val = 1 : the server will send all his data)
+    setServerUrl: function(val) {
+        this.serverUrl = val;
+    },
     // Usefull to tell the server to resend all the data from a particular Date (val = 1 : the server will send all his data)
     setSyncDate: function(val) {
         this.syncInfo.lastSyncDate = val;

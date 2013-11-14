@@ -20,7 +20,6 @@ function inizializzaDB(tx){
   sync_info = new Array();
     
   // ABILITA IL MONITORAGGIO DELLE TABELLE PER LA SINCRONIZZAZIONE
-  var service_sync_url = "http://www.gretacity.com/Service/index.php?s=sync_client";
   DBSYNC.initSync(TABLES_TO_SYNC, db, sync_info, service_sync_url , function(){console.log("INIZIALIZZAZIONE SYNC OK");});
   
   // CONTROLLA SE SONO PRESENTI DATI DA SINCRONIZZARE

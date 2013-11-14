@@ -61,6 +61,9 @@ function successLogin(result){
     $(index_loginBtn).addClass("ui-disabled");
     
     console.log("LOGIN EFFETTUTATO CON SUCCESSO");
+    
+    service_sync_url += "&user_id="+parseInt(result);
+    DBSYNC.setServerUrl = service_sync_url;
 
 	// riabilita tasto login
 	$(login_submitBtn, form).removeAttr("disabled");

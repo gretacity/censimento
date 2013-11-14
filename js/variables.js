@@ -19,6 +19,7 @@ var userid = window.localStorage.getItem("userid");
 
 var censimento_ins = -1;
 
+var service_sync_url = "http://www.gretacity.com/Service/index.php?s=sync_client";
 
 // building con android
 //var scanner = window.plugins.barcodeScanner;
