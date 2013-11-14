@@ -21,8 +21,8 @@ var censimento_ins = -1;
 
 
 // building con android
-var scanner = window.plugins.barcodeScanner;
+//var scanner = window.plugins.barcodeScanner;
 // building con phonegap build
-//var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 
 var db = null;
