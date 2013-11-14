@@ -28,12 +28,8 @@ function validate_Generali(){
  		validate = false;	
  	}
  	
- 	if(validate)
- 		return true;
- 	
- 	alert(message);
- 	return false;
- 	
+ 	return evaluate(validate,message);
+
 }
 
 function validate_Segnaletica(){
@@ -66,14 +62,31 @@ function validate_Segnaletica(){
  		}
  	}
  	
-	if(validate)
- 		return true;
- 	
- 	alert(message);
- 	return false;
+	return evaluate(validate,message);
+
 }
 
 function validate_Beni(){
-	return true;
 	
+ 	var validate = true;
+   	var message = "";
+   	
+   	var tipologia_bene_id = $("#tipologia_bene_id").val();
+   	   	
+   	if(tipologia_bene_id == -1){
+   		prec = "#tipologia_bene_id";
+   		message = "Seleziona Tipologia del Bene";
+   		validate = false;
+   	}
+	
+	return evaluate(validate,message);
+}
+
+function evaluate(validate,message){
+	
+	if(validate)
+		return true;
+	
+	alert(message);
+	return false;
 }

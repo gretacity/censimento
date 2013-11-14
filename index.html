@@ -14,17 +14,23 @@
         <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
         <script type="text/javascript" src="js/jquery.mobile-1.2.1.min.js"></script>
         
+        <script type="text/javascript" src="js/variables.js"></script>
+
         <script type="application/x-javascript" src="js/webSqlSync.js"  charset="utf-8"></script>   
         <script type="text/javascript" src="js/db.js"></script>
      
-        <script type="text/javascript" src="js/func.js"></script> 
         <script type="text/javascript" src="js/geoLocation.js"></script>
         <script type="text/javascript" src="js/validate.js"></script>
-
         <script type="text/javascript" src="js/save.js"></script>
         <script type="text/javascript" src="js/login.js"></script>
         <script type="text/javascript" src="js/sync.js"></script>
         <script type="text/javascript" src="js/search.js"></script>  
+        
+        <script type="text/javascript" src="js/bene.js"></script>  
+        <script type="text/javascript" src="js/generali.js"></script>  
+        <script type="text/javascript" src="js/segnaletica.js"></script>  
+
+        <script type="text/javascript" src="js/func.js"></script> 
         
         <!-- database cartelli -->
         <script type="text/javascript" src="js/ss_segnale.js"></script>
@@ -50,9 +56,9 @@
 			
 			<div data-role="content">	
 				
-					<a id='sync_data' onclick='sync_data()' class='ui-disabled' data-role="button">Sincronizza Censimenti</a> 
-					<a id='loginbtn' href="#loginPage" class='ui-disabled' data-role="button">Effettua il Login</a> 
-					<a id='infogenerali_btn' class='ui-disabled' data-role="button">Inizia a Censire</a>
+					<a id='sync_dataBtn' class='ui-disabled' data-role="button">Sincronizza Censimenti</a> 
+					<a id='loginBtn' href="#loginPage" class='ui-disabled' data-role="button">Effettua il Login</a> 
+					<a id='infogeneraliBtn' class='ui-disabled' data-role="button">Inizia a Censire</a>
 						
 					<div id='sync_info'>
 						<h3 id='sync_info_title'>Operazioni</h3>
@@ -127,7 +133,7 @@
 							</div>
 							
 							<p align='center' id='submit-info_generali'>
-		                			<button id='salva-info_generaliBtn'>Salva</button>
+	                			<button id='salva-info_generaliBtn'>Salva</button>
 		                	</p>
 					</div>
 			</div>

@@ -219,7 +219,7 @@ var DBSYNC = {
 				
 				var query = "SELECT rowid,* FROM "+current+" WHERE censimento_id = "+censimento_id;
 				if(current == "censimento")		
-					query = "SELECT rowid,* FROM "+current+" WHERE rowid = "+censimento_id;
+					query = "SELECT rowid,* FROM censimento WHERE rowid = "+censimento_id;
 				
 				
 				self._getDataToSave(query,tx,function(data){

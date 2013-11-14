@@ -1,5 +1,3 @@
-var db = null;
-
 function inizializzaDB(tx){
 	
   tx.executeSql('CREATE TABLE IF NOT EXISTS censimento (qr_code,lat,lon,sync)');
@@ -33,7 +31,7 @@ function successDB(){
 	console.log("DATABASE INIZIALIZZATO CON SUCCESSO");
 	
 	// abilita il pulsante di inizia censimento (cosa censire)
-    $("#infogenerali_btn").removeClass('ui-disabled');   
+    $(index_infogeneraliBtn).removeClass('ui-disabled');   
 
 }
 
@@ -54,12 +52,9 @@ function check_data_to_sync(db){
 			   len = parseInt(len);
 			   			   
 			   if(len == 0)
-			    	$("#sync_data").addClass('ui-disabled');   
+			    	$(index_syncdataBtn).addClass('ui-disabled');   
 			   else
-			   		$("#sync_data").removeClass('ui-disabled');
-			   
-			   
-			   
+			   		$(index_syncdataBtn).removeClass('ui-disabled');
 			}, null);
 		});	
   	}

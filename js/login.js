@@ -1,8 +1,23 @@
-/* LOGIN FUNCTION */
+var login_submitBtn = "#submitBtn";
+
+// associa il gestore alla perssione del tasto di effettua login
+function init_loginPage(){
+	$("form").on("submit", false);
+	$(login_submitBtn).on("click", handleLogin);
+}
+
+// controlla il valore della variabile userid e blocca il tasto
+// effettua login della index
+function check_Login(){
+	if(userid == null || userid <= 0)
+		$(index_loginBtn).removeClass("ui-disabled");
+}
+
+// gestore del tasto effettua login
 function handleLogin() {
 	
 	var form = $("#loginForm");
-	$("#submitBtn", form).attr("disabled", "disabled");
+	$(login_submitBtn, form).attr("disabled", "disabled");
 	var username = $("#username", form).val();
 	var password = $("#password", form).val();
 	
@@ -33,6 +48,7 @@ function handleLogin() {
 
 }
 
+// funzione di callback login effettuato
 function successLogin(result){
 	
 	// SETTA LA VARIABILE DI SESSIONE
@@ -42,11 +58,13 @@ function successLogin(result){
 	$.mobile.changePage("#indexPage");
 
 	// DISABILITA PULSANTE LOGIN SE NON EFFETTUATO
-    $("#loginbtn").addClass("ui-disabled");
+    $(index_loginBtn).addClass("ui-disabled");
     
     console.log("LOGIN EFFETTUTATO CON SUCCESSO");
 	
 }
+
+// funzione di callback login error
 function errorLogin(titolo,messaggio){
 	
 	navigator.notification.alert(messaggio, function() {},titolo);
