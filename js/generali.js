@@ -58,7 +58,7 @@ function clean_generali_GPS(){
 
 // gestore bottone acquisisci in infogenerali
 function handler_infogenerali_acquisisci(){
-		
+			
 	var pattern_qr = new RegExp(/[\d]+$/);
 	
 	// BLOCCA TASTO QR

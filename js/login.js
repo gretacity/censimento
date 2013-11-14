@@ -61,7 +61,10 @@ function successLogin(result){
     $(index_loginBtn).addClass("ui-disabled");
     
     console.log("LOGIN EFFETTUTATO CON SUCCESSO");
-	
+
+	// riabilita tasto login
+	$(login_submitBtn, form).removeAttr("disabled");
+
 }
 
 // funzione di callback login error
@@ -69,6 +72,9 @@ function errorLogin(titolo,messaggio){
 	
 	navigator.notification.alert(messaggio, function() {},titolo);
 	console.log("LOGIN FALLITO");
+	
+	// riabilita tasto login
+	$(login_submitBtn, form).removeAttr("disabled");
 
 }
 /* END LOGIN FUNCTION */

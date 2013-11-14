@@ -5,7 +5,7 @@ var index_infogeneraliBtn = "#infogeneraliBtn";
 var cosa_beneBtn = "#bene_censimentoBtn";
 var cosa_segnaleticaBtn = "#segnaletica_censimentoBtn";
 
-var infogenerali_acquisisciBtn = "#acquisisci";
+var infogenerali_acquisisciBtn = "#acquisisci_qr";
 var infogenerali_saveBtn = "#salva-info_generaliBtn";
 var infogenerali_fotofronteBtn = "#cattura_foto_fronte";
 var infogenerali_fotoretroBtn = "#cattura_foto_retro";
