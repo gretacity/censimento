@@ -1,3 +1,15 @@
+// controllo geolocation sul dispositivo
+function check_Geolocation(){
+	// CONTROLLO LA DISPONIBILITA DEL GPS
+	if(navigator.geolocation)
+	    navigator.geolocation.getCurrentPosition(successPosition, errorPosition);
+	else{
+		console.log("geolocalizzazione non supportata");
+	    disableSubmit();
+	}
+}
+
+// funzione di callback posizione ottenuta
 function successPosition(position){
 	
 		//console.log("gps callback");
@@ -21,13 +33,13 @@ function successPosition(position){
 	
 	$("#latitude, #longitude,#accuracy").css("background-color","#dff0d8");
 };
-						
+
+// funzione di login errore posizione			
 function errorPosition(error){
-        $("#longitude").val(lon_r);
-        $("#accuracy").val(acc_r);
-        
-        $("#latitude, #longitude,#accuracy").css("background-color","#dff0d8");
+    $("#longitude").val(lon_r);
+    $("#accuracy").val(acc_r);
     
+    $("#latitude, #longitude,#accuracy").css("background-color","#dff0d8");
 };
 						
 function errorCallback(error){
