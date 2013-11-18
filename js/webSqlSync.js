@@ -306,10 +306,7 @@ var DBSYNC = {
         if (typeof serverData.data === 'undefined' || serverData.data.length === 0) {
         	
             //nothing to update
-            self.db.transaction(function(tx) {
-            	
-            	alert(JSON.stringify(serverData));
-            	
+            self.db.transaction(function(tx) {            	
                 //We only use the server date to avoid dealing with wrong date from the client
                 self._finishSync(serverData.syncDate, tx, callBack(0));
             });
@@ -400,9 +397,7 @@ var DBSYNC = {
         // Remove only the elem sent to the server (in case new_elem has been added during the sync)
         // We don't do that anymore: this._executeSql('DELETE FROM new_elem', [], tx);
         for (tableName in self.clientData.data) {
-        	
-        	alert("giro nell'array di tabelle");
-        	        	
+        	        	        	
             idsToDelete = new Array();
             idName =  self.idNameFromTableName[tableName];
             for (i=0; i < self.clientData.data[tableName].length; i++) {
