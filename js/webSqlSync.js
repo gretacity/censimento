@@ -234,7 +234,7 @@ var DBSYNC = {
 					
 				 	if (contatoreTabelle === countTables) {//only call the callback at the last table
 	                        self.log('Dati recuperati dal db');
-	                        //dataToSync.info.nbDataToBackup = nbData;
+	                        dataToSync.info.nbDataToBackup = nbData;
 	                        self.syncResult.nbSent = nbData;
 	                        callBack(dataToSync);
 	                }
@@ -255,7 +255,7 @@ var DBSYNC = {
         var self = this;
 
         var XHR = new window.XMLHttpRequest(),
-                data = JSON.stringify(dataToSync);
+        data = JSON.stringify(dataToSync);
         XHR.overrideMimeType = 'application/json;charset=UTF-8';
         XHR.open("POST", self.serverUrl, true);
         XHR.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -288,9 +288,10 @@ var DBSYNC = {
     },
 
     _updateLocalDb: function(serverData, callBack) {
+    	
         var self = this;
         self.serverData = serverData;
-
+        
         if (!serverData || serverData.result === 'ERROR') {
             self.syncResult.syncOK = false;
             self.syncResult.codeStr = 'syncKoServer';
@@ -303,8 +304,12 @@ var DBSYNC = {
             return;
         }
         if (typeof serverData.data === 'undefined' || serverData.data.length === 0) {
+        	
             //nothing to update
             self.db.transaction(function(tx) {
+            	
+            	alert(JSON.stringify(serverData));
+            	
                 //We only use the server date to avoid dealing with wrong date from the client
                 self._finishSync(serverData.syncDate, tx, callBack(0));
             });
@@ -386,6 +391,7 @@ var DBSYNC = {
         });
     },
     _finishSync: function(syncDate, tx, callBack) {
+    	    	
         var self = this, tableName, idsToDelete, idName, i, idValue, idsString;
         this.firstSync = false;
         this.syncInfo.lastSyncDate = syncDate;
@@ -394,32 +400,30 @@ var DBSYNC = {
         // Remove only the elem sent to the server (in case new_elem has been added during the sync)
         // We don't do that anymore: this._executeSql('DELETE FROM new_elem', [], tx);
         for (tableName in self.clientData.data) {
+        	
+        	alert("giro nell'array di tabelle");
+        	        	
             idsToDelete = new Array();
             idName =  self.idNameFromTableName[tableName];
             for (i=0; i < self.clientData.data[tableName].length; i++) {
                 idValue = self.clientData.data[tableName][i][idName];
                 idsToDelete.push('"'+idValue+'"');
             }
+            
+            
             if (idsToDelete.length > 0) {
-                idsString = self._arrayToString(idsToDelete, ',');
-                self._executeSql('DELETE FROM new_elem WHERE table_name = "'+tableName+'" AND id IN ('+idsString+')', [], tx);
+                 idsString = self._arrayToString(idsToDelete, ',');
+                 
+                 // AGGIUNGO LA QUERY A CASCATA PER ELIMINARE I DATI NELLE ALTRE
+                 // TABELLE ASSOCIATE
+                 self._executeSql('DELETE FROM new_elem WHERE table_name = "'+tableName+'" AND id IN ('+idsString+')', [],tx);
+            	 self._executeSql('DELETE FROM '+tableName+' WHERE '+idName+' = '+idsString, [], tx);
             }
+            
         }
-        // Remove elems received from the server that has triggered the SQL TRIGGERS, to avoid to send it again to the server and create a loop
-        for (tableName in self.serverData.data) {
-            idsToDelete = new Array();
-            idName =  self.idNameFromTableName[tableName];
-            for (i=0; i < self.serverData.data[tableName].length; i++) {
-                idValue = self.serverData.data[tableName][i][idName];
-                idsToDelete.push('"'+idValue+'"');
-            }
-            if (idsToDelete.length > 0) {
-                idsString = self._arrayToString(idsToDelete, ',');
-                self._executeSql('DELETE FROM new_elem WHERE table_name = "'+tableName+'" AND id IN ('+idsString+')', [], tx);
-            }
-        }
-
-        callBack();
+        
+        // RIMUOVO LA CALLBACK CHE MI CREA ERRORE
+        //callBack();
         self.clientData = null;
         self.serverData = null;
     },
